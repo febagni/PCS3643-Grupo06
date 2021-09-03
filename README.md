@@ -6,9 +6,9 @@ O grupo é composto pelos integrantes:
 
 | Nome  | Conta GitHub | 
 |:---|:---|
-| Alexandre Marques Carrer  |  @AleMarquis |
-| Felipe Bagni              |  @febagni |
-| Rafael Yuji Yokowo        |  @rafaelyokowo |
+| Alexandre Marques Carrer  |  <a href="https://github.com/alemarquis">@AleMarquis</a> |
+| Felipe Bagni              |  <a href="https://github.com/febagni">@febagni</a> |
+| Rafael Yuji Yokowo        |  <a href="https://github.com/rafaelyokowo">@rafaelyokowo</a> |
 
 A ideia é o desenvolvimento e a implementação de um Sistema Virtual de Leilões, cujo enunciado pode ser lido [aqui](./docs/enunciado.pdf).
 
