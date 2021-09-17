@@ -25,10 +25,12 @@ O board do Workshop de Requisitos no Trello pode ser visto neste [link](https://
 
 ## Aula 02 (10/09/2021)
 
-O documento com as especificações dos casos de uso pode ser lido [aqui](./docs/Especificacao_Casos_de_Uso.pdf).
+O documento com as especificações dos casos de uso pode ser lido [aqui](./docs/ERS_g6.pdf). Assim, como o diagrama.
 
-E o diagrama resultante é o seguinte:
-
-![diagrama casos de uso](./diagrams/casos_de_uso.png "diagrama casos de uso")
+Update (17/09/2021); o documento foi atualizado após os comentários do professor.
 
 ---
+
+## Aula 03 (17/09/2021)
+
+O documento com a Especificação de Caso de Uso (marcada) e o Modelo de Análise e a versão inicial dos Diagramas de Classes, encontra-se [aqui](./docs/ERS_g6.pdf).
