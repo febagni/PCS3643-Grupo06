@@ -27,10 +27,18 @@ O board do Workshop de Requisitos no Trello pode ser visto neste [link](https://
 
 O documento com as especificações dos casos de uso pode ser lido [aqui](./docs/ERS_g6.pdf). Assim, como o diagrama.
 
-Update (17/09/2021); o documento foi atualizado após os comentários do professor.
+Update (24/09/2021): o documento foi atualizado após revisão para o plano de testes.
 
 ---
 
 ## Aula 03 (17/09/2021)
 
 O documento com a Especificação de Caso de Uso (marcada) e o Modelo de Análise e a versão inicial dos Diagramas de Classes, encontra-se [aqui](./docs/ERS_g6.pdf).
+
+Update (24/09/2021): o documento foi atualizado após revisão para o plano de testes.
+
+---
+
+## Aula 04 (24/09/2021)
+
+O documento com o Plano de Testes encontra-se [aqui](./docs/Plano_de_Testes_g6.pdf).
