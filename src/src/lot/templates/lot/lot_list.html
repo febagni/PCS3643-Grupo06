@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2><a href="{% url 'lot:lot_list' %}">Lotes</a></h2>
+
+<ul>
+    {% for lot in object_list %}
+    <li>{{ lot.lot_name }}  ({{ lot.minimal_bid }} Info)
+    <a href="{% url 'lot:lot_edit' lot.id %}">Editar</a>
+    <a href="{% url 'lot:lot_delete' lot.id %}">Deletar</a>
+    </li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'lot:lot_new' %}">Novo</a>
+
+{% endblock %}
