@@ -42,3 +42,9 @@ Update (24/09/2021): o documento foi atualizado após revisão para o plano de t
 ## Aula 04 (24/09/2021)
 
 O documento com o Plano de Testes encontra-se [aqui](./docs/Plano_de_Testes_g6.pdf).
+
+---
+
+## Aula 05 (01/10/2021)
+
+A implementação da classe Lot, que representa o lote, com CRUD está [neste diretório](./src/).
