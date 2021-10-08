@@ -1,4 +1,7 @@
- body {
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+body {
     font-family: Arial, Helvetica, sans-serif;
     width:800px;
     margin:auto;
@@ -7,7 +10,8 @@
 p,li,label, #tcolor{
     color: rgb(181, 245, 236);
 }
-a { 
+
+a{ 
     color:#FFF;
     text-decoration:none;
 }
@@ -28,3 +32,49 @@ body {
     margin: 50;
     height: 100vh;
   }
+
+.header {
+  background-color: #f1f1f1;
+  padding: 20px;
+  text-align: center;
+}
+
+
+* {
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#menu-h{
+    background-color: rgb(37, 37, 39);
+}
+
+#menu-h ul {
+    max-width: 800px;
+    list-style: none;
+    padding: 0;
+}
+
+#menu-h ul li {
+    display: inline;
+}
+
+#menu-h ul li a {
+    color: #FFF;
+    padding: 20px;
+    display: inline-block;
+    text-decoration: none;
+    transition: background .4s;
+}
+
+#menu-h ul li a:hover {
+    background-color: rgb(255, 255, 255);
+}
+
+#menu-h ul li:last-child a {
+    float: right;
+    background-color: rgb(255, 255, 255);
+}
+

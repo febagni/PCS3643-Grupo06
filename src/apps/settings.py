@@ -39,8 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'theme',
-    'books_fbv',
-    'books_fbv_user', 
+    'lot_user', 
     'lot'   
 ]
 
@@ -78,12 +77,23 @@ WSGI_APPLICATION = 'apps.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+ 'default': {
+ 'ENGINE': 'django.db.backends.mysql',
+ 'NAME': 'pcs3643g6',
+ 'USER': 'fabicom',
+ 'PASSWORD': 'mac0321',
+ 'HOST': 'localhost',
+ 'PORT': '3306',
+ }
+ } 
 
 
 # Password validation
@@ -128,5 +138,5 @@ STATICFILES_DIRS = [
 ]
 #LOGIN_URL = '/accounts/login/'
 
-LOGIN_REDIRECT_URL =  '/books_fbv_user/'
+LOGIN_REDIRECT_URL =  '/lot_user/'
 LOGOUT_REDIRECT_URL = '/'

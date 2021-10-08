@@ -2,8 +2,22 @@
 
 {% block content %}
 
-<a href="{% url 'lot:lot_list' %}">Lotes (sem necessidade de login)</a><br>
-<!--<a href="{% url 'books_fbv:book_list' %}">Function Based Views</a><br>-->
-<a href="{% url 'books_fbv_user:book_list' %}">Vistas baseadas em funções com login do usuário</a><br>
+<div class="wrapper" style="float: right;">
+    <!-- Sidebar Holder -->
+    <nav id="menu-h">
+        <ul>
+            <li style="font-family: 'Montserrat', sans-serif; font-size:12px;" 
+            th:classappend="${module == 'home' ? 'active' : ''}">
+             <a href="{% url 'lot:lot_list' %}">Lots (no need to login)</a>
+            </li>	
+
+            <li class="font-weight-bold" style="font-family: 'Montserrat', sans-serif; font-size:12px; " 
+            th:classappend="${module == 'home' ? 'active' : ''}">
+            <a href="{% url 'lot_user:lot_list' %}">View based on function with user login</a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
 
 {% endblock %}
