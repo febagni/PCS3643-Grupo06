@@ -62,14 +62,16 @@ O Diagrama da Entidade Relacionamento dos casos de uso são:
 
 - Caso de Uso 1:
 
-![DER-1](./diagrams/E-R_CasoDeUso1.jpeg)
+![DER-1](./diagrams/E-R_CasoDeUso1.png)
 
 - Caso de Uso 2:
 
-![DER-2](./diagrams/E-R_CasoDeUso2.jpeg)
+![DER-2](./diagrams/E-R_CasoDeUso2.png)
 
 - Caso de Uso 3:
 
-![DER-3](./diagrams/E-R_CasoDeUso3.jpeg)
+![DER-3](./diagrams/E-R_CasoDeUso3.png)
+
+No caso, os trabalhos tem sido em torno do Caso de Uso 1.
 
 Os diagramas do [documento](./docs/ERS_g6.pdf) foram atualizado após revisão para fazer o diagrama E-R para o Banco de Dados.
