@@ -40,7 +40,9 @@ INSTALLED_APPS = [
 
     'theme',
     'lot_user', 
-    'lot'   
+    'lot',
+    'auction',
+    'auctioneer'  
 ]
 
 MIDDLEWARE = [

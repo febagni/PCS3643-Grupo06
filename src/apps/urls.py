@@ -7,6 +7,8 @@ urlpatterns = [
     path('', theme.views.home),
     path('lot/', include('lot.urls')),
     path('lot_user/', include('lot_user.urls')),
+    #path('auction/', include('auction.urls'), namespace='auction'),
+    #path('auctioneer/', include('auctioneer.urls'), namespace='auctioneer'),
 
     # Enable built-in authentication views
     path('accounts/', include('django.contrib.auth.urls')),    

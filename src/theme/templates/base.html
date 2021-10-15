@@ -8,7 +8,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YOUR FAVORITE VIRTUAL BID SYSTEM</title>
+    <title>Your Favorite Bid System</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> <!-- https://fonts.google.com/ -->
 </head>
@@ -16,16 +16,30 @@
 <body>
 
     <div class="header">
+        <h1><a href="/" style="width: 10px;"><img src="{% static '/images/logo.png' %}" alt="Bid Coin" width=30% height=30%></a></h1>
+        <nav id="menu-h">
+            <ul>
+                <li style="font-family: 'Montserrat', sans-serif; font-size:12px;" 
+                th:classappend="${module == 'home' ? 'active' : ''}">
+                 <a href="{% url 'lot:lot_list' %}">Lots (no need to login)</a>
+                </li>	
+    
+                <li style="font-family: 'Montserrat', sans-serif; font-size:12px; " 
+                th:classappend="${module == 'home' ? 'active' : ''}">
+                <a href="{% url 'lot_user:lot_list' %}">View based on function with user login</a>
+                </li>
+                
+            </ul>
+        </nav>
+    </div>
+
+    <div id="content">
         {% if user.is_authenticated %}
-        <div id="user">
+        <div id="user" style="padding-left:15px; float:right; font: 'Montserrat'; font-size:12px;">
             Hello {{ user }}, <a href="{% url 'logout' %}">Logout</a>
         </div>
         {% endif %}
-        <h1><a href="/" style="width: 600px; float: left;">Virtual Bid System</a></h1>
 
-    </div><!-- header -->
-
-    <div id="content">
         {% block content %}
         {% endblock %}
     </div><!-- content -->

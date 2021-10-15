@@ -2,22 +2,19 @@
 
 {% block content %}
 
-<div class="wrapper" style="float: right;">
-    <!-- Sidebar Holder -->
-    <nav id="menu-h">
-        <ul>
-            <li style="font-family: 'Montserrat', sans-serif; font-size:12px;" 
-            th:classappend="${module == 'home' ? 'active' : ''}">
-             <a href="{% url 'lot:lot_list' %}">Lots (no need to login)</a>
-            </li>	
+<div style="float: left;">
 
-            <li class="font-weight-bold" style="font-family: 'Montserrat', sans-serif; font-size:12px; " 
-            th:classappend="${module == 'home' ? 'active' : ''}">
-            <a href="{% url 'lot_user:lot_list' %}">View based on function with user login</a>
+    <div>
+        <p style="padding-left:15px">Auction List (a ser implementado)</p>
+        <ul>
+            {% for lot in object_list %}
+            <li>{{ lot.lot_name }}  ({{ lot.minimal_bid }} Info)
+            <a href="{% url 'lot:lot_edit' lot.id %}">Editar</a>
+            <a href="{% url 'lot:lot_delete' lot.id %}">Deletar</a>
             </li>
-            
+            {% endfor %}
         </ul>
-    </nav>
+    </div> 
 </div>
 
 {% endblock %}
