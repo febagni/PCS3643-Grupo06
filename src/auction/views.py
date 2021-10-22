@@ -6,14 +6,7 @@ from .models import Auction
 class AuctionForm(ModelForm):
     class Meta:
         model = Auction
-        fields = [ 
-            'auction_id',
-            'auction_start',
-            'auction_end',
-            'available_lot_list',
-            'auctioneer',
-            'auction_winner'
-        ]
+        fields = ('auction_id', 'auction_start', 'auction_end', 'available_lot_list', 'auctioneer', 'auction_winner')
 
 def auction_list(request, template_name='auction/auction_list.html'):
     auction = Auction.objects.all()
@@ -22,7 +15,7 @@ def auction_list(request, template_name='auction/auction_list.html'):
     return render(request, template_name, data)
 
 def auction_create(request, template_name='auction/auction_form.html'):
-    form = Auction.AuctionForm(request.POST or None)
+    form = AuctionForm(request.POST or None)
     if form.is_valid():
         form.save()
         return redirect('auction:auction_list')
@@ -30,7 +23,7 @@ def auction_create(request, template_name='auction/auction_form.html'):
 
 def auction_update(request, pk, template_name='auction/auction_form.html'):
     auction= get_object_or_404(Auction, pk=pk)
-    form = Auction.AuctionForm(request.POST or None, instance=auction)
+    form = AuctionForm(request.POST or None, instance=auction)
     if form.is_valid():
         form.save()
         return redirect('auction:auction_list')

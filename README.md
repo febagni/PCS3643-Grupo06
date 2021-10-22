@@ -62,15 +62,15 @@ O Diagrama da Entidade Relacionamento dos casos de uso são:
 
 - Caso de Uso 1:
 
-![DER-1](./diagrams/E-R_CasoDeUso1.jpeg)
+![DER-1](./diagrams/E-R_CasoDeUso1.png)
 
 - Caso de Uso 2:
 
-![DER-2](./diagrams/E-R_CasoDeUso2.jpeg)
+![DER-2](./diagrams/E-R_CasoDeUso2.png)
 
 - Caso de Uso 3:
 
-![DER-3](./diagrams/E-R_CasoDeUso3.jpeg)
+![DER-3](./diagrams/E-R_CasoDeUso3.png)
 
 Os diagramas do [documento](./docs/ERS_g6.pdf) foram atualizado após revisão para fazer o diagrama E-R para o Banco de Dados.
 
@@ -80,3 +80,8 @@ Os diagramas do [documento](./docs/ERS_g6.pdf) foram atualizado após revisão p
 Foi feita a implementação das classes Auction e Auctioneer, além melhorias em UI e UX, trabalhando-se o front-end com CSS e HTML. Desenvolvido um logo para o projeto e feito o Diagrama de Navegação (modelo de interfaces e navegação), como pode ser visto aqui:
 
 ![DER-3](./diagrams/diagrama-navegacao.png)
+
+---
+
+## Aula 08 (22/10/2021)
+Foi feita a detecção de alguns problemas na implementação das classes Auction e Auctioneer. Foram adicionados métodos nos models das classes lot e lot_user. Foram implementados testes de unidades para tais classes e feito um novo [README](./src/README.md) explicando como rodar o projeto.
