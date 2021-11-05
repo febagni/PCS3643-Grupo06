@@ -7,10 +7,9 @@ from django.conf import settings
 class Auction(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-    auction_id = models.IntegerField
-    auction_start = models.IntegerField
-    auction_end = models.IntegerField
-    available_lot_list = []
+    auction_id = models.IntegerField()
+    auction_start = models.IntegerField()
+    auction_end = models.IntegerField()
     auctioneer = models.CharField(max_length=50)
     auction_winner = models.CharField(max_length=50)
 

@@ -7,7 +7,7 @@ from .models import Auction
 class AuctionForm(ModelForm):
     class Meta:
         model = Auction
-        fields = ('auction_id', 'auction_start', 'auction_end', 'available_lot_list', 'auctioneer', 'auction_winner')
+        fields = ('auction_id', 'auction_start', 'auction_end', 'auctioneer', 'auction_winner')
 
 @login_required
 def auction_list(request, template_name='auctioneer/auction_list.html'):

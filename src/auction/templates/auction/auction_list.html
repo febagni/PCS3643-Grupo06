@@ -6,7 +6,7 @@
 
 <ul>
     {% for auction in object_list %}
-    <li>{{ auction.auction_name }}  ({{ auction.minimal_bid }} Info)
+    <li>{{ auction.auction_id }}  ({{ auction.auctioneer }} Info)
     <a href="{% url 'auction:auction_edit' auction.id %}">Editar</a>
     <a href="{% url 'auction:auction_delete' auction.id %}">Deletar</a>
     </li>
