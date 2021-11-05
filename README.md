@@ -85,3 +85,10 @@ Foi feita a implementação das classes Auction e Auctioneer, além melhorias em
 
 ## Aula 08 (22/10/2021)
 Foi feita a detecção de alguns problemas na implementação das classes Auction e Auctioneer. Foram adicionados métodos nos models das classes lot e lot_user. Foram implementados testes de unidades para tais classes e feito um novo [README](./src/README.md) explicando como rodar o projeto.
+
+---
+
+## Aula 09 (05/11/2021)
+Foi feita a implementação dos testes com o caso de uso criar lote com uso do Selenium. Foi atualizado o [README](./src/README.md) com as instruções para rodar o projeto de forma local explicando como rodar o projeto.
+
+

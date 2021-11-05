@@ -107,6 +107,16 @@ Para acessar no aplicativo vá para o URL <http://localhost:8000/>
 
 ---
 
+## Testes com Selenium
+
+Para a execução dos testes de interface com o Selenium, é preciso antes realizar sua instalação. O Selenium é uma extensão de navegadores responsável pela interação automatizada com interfaces de páginas web. No Google Chrome, basta procurar pela extensão Selenium IDE e adicioná-la ao navegador.
+
+Concluída a instalação, a próxima etapa é a de abrir o Selenium IDE, criar um novo projeto e um nobo caso de testes e dar início à gravação de tela. Nessa gravação, o usuário realiza as interações com a interface que serão reproduzidas pela extensão na execução de testes.
+
+Caso esse processo já tenha sido feito, basta abrir o arquivo referente aos casos de testes que possui o formato '.side'.
+
+---
+
 ## Preciso de um usuário e senha para acessar "lot\_user?"
 
 Sim, os "lot\_user" demonstram como CRUD de lotes funcionam com usuários Django, e você precisa criar um usuário para testá-lo,
