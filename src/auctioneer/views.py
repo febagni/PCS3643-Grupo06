@@ -30,6 +30,16 @@ def auction_create(request, template_name='auctioneer/auction_form.html'):
     return render(request, template_name, {'form':form})
 
 @login_required
+def auction_lot_list(request, template_name='auctioneer/auction_lot_list.html'):
+    if request.user.is_superuser:
+        auction = Auction.objects.all()
+    else:
+        auction = Auction.objects.filter(user=request.user)
+    data = {}
+    data['object_list'] = auction
+    return render(request, template_name, data)
+
+@login_required
 def auction_update(request, pk, template_name='auctioneer/auction_form.html'):
     if request.user.is_superuser:
         auction= get_object_or_404(Auction, pk=pk)
