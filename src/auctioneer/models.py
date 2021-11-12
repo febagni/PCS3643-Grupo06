@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 from django.urls import reverse
 from django.conf import settings
 
@@ -8,8 +9,8 @@ class Auction(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     auction_id = models.IntegerField()
-    auction_start = models.IntegerField()
-    auction_end = models.IntegerField()
+    auction_start = models.DateTimeField()
+    auction_end = models.DateTimeField()
     auctioneer = models.CharField(max_length=50)
     auction_winner = models.CharField(max_length=50)
 
@@ -19,13 +20,13 @@ class Auction(models.Model):
         self.auctioneer_contact = contact
     
     def __str__(self):
-        return self.auctioneer_name
+        return str(self.auction_id)
 
     def get_absolute_url(self):
         return reverse('auctioneer:auction_edit', kwargs={'pk': self.pk})
 
 class Lot(models.Model):
-    auction = models.ForeignKey(Auction, on_delete=models.CASCADE)
+    auction = models.ForeignKey(Auction, null=True, on_delete=models.CASCADE)
 
     lot_name = models.CharField(max_length=200)
     reserve_price = models.IntegerField()

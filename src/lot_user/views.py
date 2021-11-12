@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import ModelForm
 
 from .models import Lot
+from apps.decorators import *
 
 class LotForm(ModelForm):
     class Meta:
@@ -24,6 +25,7 @@ class LotForm(ModelForm):
         ]
 
 @login_required
+@allowed_users(allowed_roles=['seller'])
 def lot_list(request, template_name='lot_user/lot_list.html'):
     if request.user.is_superuser:
         lot = Lot.objects.all()
@@ -34,6 +36,7 @@ def lot_list(request, template_name='lot_user/lot_list.html'):
     return render(request, template_name, data)
 
 @login_required
+@allowed_users(allowed_roles=['seller'])
 def lot_create(request, template_name='lot_user/lot_form.html'):
     form = LotForm(request.POST or None)
     if form.is_valid():
@@ -44,6 +47,7 @@ def lot_create(request, template_name='lot_user/lot_form.html'):
     return render(request, template_name, {'form':form})
 
 @login_required
+@allowed_users(allowed_roles=['seller'])
 def lot_update(request, pk, template_name='lot_user/lot_form.html'):
     if request.user.is_superuser:
         lot= get_object_or_404(Lot, pk=pk)
@@ -56,6 +60,7 @@ def lot_update(request, pk, template_name='lot_user/lot_form.html'):
     return render(request, template_name, {'form':form})
 
 @login_required
+@allowed_users(allowed_roles=['seller'])
 def lot_delete(request, pk, template_name='lot_user/lot_confirm_delete.html'):
     if request.user.is_superuser:
         lot= get_object_or_404(Lot, pk=pk)

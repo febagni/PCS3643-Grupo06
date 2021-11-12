@@ -2,17 +2,30 @@
 
 {% block content %}
 
-<h2><a href="{% url 'auction:auction_list' %}">auctions</a></h2>
+<h2><a href="{% url 'auctioneer:auction_list' %}">Current Auctions</a></h2>
 
 <ul>
     {% for auction in object_list %}
-    <li>{{ auction.auction_id }}  ({{ auction.auctioneer }} Info)
-    <a href="{% url 'auction:auction_edit' auction.id %}">Editar</a>
-    <a href="{% url 'auction:auction_delete' auction.id %}">Deletar</a>
+    <li>ID: {{auction.auction_id }}
+        Auctioneer: {{auction.auctioneer }}
+    <a href="{% url 'auctioneer:auction_edit' auction.id %}">Editar</a>
+    <a href="{% url 'auctioneer:auction_delete' auction.id %}">Deletar</a>
     </li>
+
+    
+    {% for lot in lot_list %}
+    <li style="padding-left:15px">{{ lot.lot_name }}  ({{ lot.minimal_bid }})
+    <a href="{% url 'auctioneer:auction_add_lot' id=lot.sequential_uuid pk=auction.id%}">Add Lot</a>
+    </li>
+    {% endfor %}
+   
     {% endfor %}
 </ul>
 
-<a href="{% url 'auction:auction_new' %}">Novo</a>
+<a href="{% url 'auctioneer:auction_new' %}">Create Auction</a>
+
+<a href="{% url 'auctioneer:auction_publish' %}">Publish Auction</a>
+
+<h3><a href="{% url 'lot_user:lot_list' %}">Available Lots</a></h3>
 
 {% endblock %}

@@ -5,15 +5,8 @@
 <div style="float: left;">
 
     <div>
-        <p style="padding-left:15px">Auction List (a ser implementado)</p>
-        <ul>
-            {% for lot in object_list %}
-            <li>{{ lot.lot_name }}  ({{ lot.minimal_bid }} Info)
-            <a href="{% url 'lot:lot_edit' lot.id %}">Editar</a>
-            <a href="{% url 'lot:lot_delete' lot.id %}">Deletar</a>
-            </li>
-            {% endfor %}
-        </ul>
+        <p style="padding-top: 20px; padding-left:15px; font-family: 'Montserrat', sans-serif; font-size:25px;"> Welcome to BidCoin! </p>
+        
     </div> 
 </div>
 

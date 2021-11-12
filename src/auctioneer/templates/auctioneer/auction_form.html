@@ -2,7 +2,8 @@
 
 {% block content %}
 
-<h2><a href="{% url 'auction:auction_list' %}">auction</a>: Edit</h2>
+<h2><a href="{% url 'auction:auction_list' %}">Create Auction</a></h2>
+<h2><a href="{% url 'auctioneer:auction_list_lot' %}">Lot List</a></h2>
 
 <form method="post">{% csrf_token %}
     {{ form.as_p }}
