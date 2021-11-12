@@ -9,10 +9,9 @@ class Lot(models.Model):
 
     lot_name = models.CharField(max_length=200)
     reserve_price = models.IntegerField()
-    sequential_uuid = models.IntegerField()
+    sequential_uuid = models.CharField(max_length=200)
     minimal_bid = models.IntegerField()
-    lot_photo = models.CharField(max_length=200)
-    seller_contact = models.IntegerField()
+    seller_contact = models.EmailField()
     lot_description = models.CharField(max_length=200)
     minimum_bid_increment = models.IntegerField()
     comissions = models.IntegerField()

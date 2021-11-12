@@ -2,17 +2,18 @@
 
 {% block content %}
 
-<h2 style="padding-left:15px"><a href="{% url 'lot_user:lot_list' %}">Lotes</a></h2>
+<h2 style="padding-left:15px"><a href="{% url 'lot_user:lot_list' %}">Lots</a></h2>
 
 <ul>
     {% for lot in object_list %}
-    <li style="padding-left:15px">{{ lot.lot_name }}  ({{ lot.minimal_bid }} Info)
+    <li style="padding-left:15px">Lot: {{ lot.lot_name }} 
     <a href="{% url 'lot_user:lot_edit' lot.id %}">Edit</a>
     <a href="{% url 'lot_user:lot_delete' lot.id %}">Delete</a>
+    <a href="{% url 'lot_user:lot_detail' lot.id %}">Details</a>
     </li>
     {% endfor %}
 </ul>
 
-<a style="padding-left:15px" href="{% url 'lot_user:lot_new' %}">Novo</a>
+<a style="padding-left:15px" href="{% url 'lot_user:lot_new' %}">New</a>
 
 {% endblock %}

@@ -16,5 +16,3 @@ class Auction(models.Model):
     def get_absolute_url(self):
         return reverse('auction:auction_edit', kwargs={'pk': self.pk})
 
-    #def add_lot(self, lot):
-    #    self.available_lot_list.append(lot)

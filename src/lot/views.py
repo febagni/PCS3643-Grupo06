@@ -7,16 +7,18 @@ class LotForm(ModelForm):
     class Meta:
         model = Lot
         fields = [ 
+            #seller
             'lot_name',
-            'reserve_price',
-            'sequential_uuid',
-            'minimal_bid',
-            'lot_photo',
             'seller_contact',
             'lot_description',
+            'reserve_price',
+            #auctioneer
+            'minimal_bid',
             'minimum_bid_increment', 
             'comissions',
             'taxes',
+            #algorithm
+            'sequential_uuid',
             'number_of_bids_made',
             'current_winner_buyer',
             'highest_value_bid' 

@@ -8,8 +8,8 @@
     {% for auction in object_list %}
     <li>ID: {{auction.auction_id }}
         Auctioneer: {{auction.auctioneer }}
-    <a href="{% url 'auctioneer:auction_edit' auction.id %}">Editar</a>
-    <a href="{% url 'auctioneer:auction_delete' auction.id %}">Deletar</a>
+    <a href="{% url 'auctioneer:auction_edit' auction.id %}">Edit</a>
+    <a href="{% url 'auctioneer:auction_delete' auction.id %}">Delete</a>
     </li>
 
     

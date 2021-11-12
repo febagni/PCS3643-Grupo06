@@ -2,11 +2,11 @@
 
 {% block content %}
 
-<h2><a href="{% url 'lot_user:lot_list' %}">Lot</a>: Delete?</h2>
+<h2 style="color:rgb(255, 255, 255)"><a href="{% url 'lot_user:lot_list' %}">Return to Lot List</a> <br> Delete</h2>
 
-<form method="post">{% csrf_token %}
+<form style="color:rgb(255, 255, 255)" method="post">{% csrf_token %}
     Are you sure you want to delete "{{ object }}" ?<br/>
-    <input type="submit" value="Delete" />
+    <input type="submit" value="Confirm delete" />
 </form>
 
 {% endblock %}

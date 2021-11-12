@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 style="padding-left:15px"><a href="{% url 'lot_user:lot_list' %}">Return to Lot List</a></h2>
+
+<ul>
+    {% for lot in object_list %}
+    <li style="padding-left:15px">
+        <br>
+        Name: {{ lot.lot_name }} <br><br>
+        Seller Contact (E-mail): {{ lot.seller_contact }} <br><br>
+        Description: {{ lot.lot_description }} <br><br>
+        Reserve Price (USD): {{ lot.reserve_price }} <br><br>
+       
+        Minimal Bid (USD): {{ lot.minimal_bid }} <br><br>
+        Minimum Bid Increment (USD): {{ lot.minimum_bid_increment }} <br><br>
+        Comissions (USD): {{ lot.comissions }} <br><br>
+        Taxes (USD): {{ lot.taxes }} <br><br>
+
+        Sequential UUID: {{ lot.sequential_uuid }} <br><br>
+        Number of Bids Made: {{ lot.number_of_bids_made }} <br><br>
+        Current Winner Buyer: {{ lot.current_winner_buyer }} <br><br>
+        Highest Value Bid (USD): {{ lot.highest_value_bid }} <br><br>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
