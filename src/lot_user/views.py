@@ -5,6 +5,8 @@ from django.forms import ModelForm
 from .models import Lot
 from apps.decorators import *
 
+import uuid
+
 class LotForm(ModelForm):
     class Meta:
         model = Lot
@@ -26,6 +28,8 @@ class LotForm(ModelForm):
             'highest_value_bid' 
         ]
 
+my_uuid = uuid.uuid4()
+
 @login_required
 @allowed_users(allowed_roles=['auctioneer', 'seller'])
 def lot_list(request, template_name='lot_user/lot_list.html'):
@@ -45,8 +49,7 @@ def lot_detail(request, pk, template_name='lot_user/lot_detail.html'):
 @login_required
 @allowed_users(allowed_roles=['seller'])
 def lot_create(request, template_name='lot_user/lot_form.html'):
-    form = LotForm(request.POST or None)
-    print(form)
+    form = LotForm(request.POST, initial={'minimal_bid': 0})
     if form.is_valid():
         lot = form.save(commit=False)
         lot.user = request.user
