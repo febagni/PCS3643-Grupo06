@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import ModelForm
 
-from .models import Auction
+from auctioneer.models import Auction
 
 class AuctionForm(ModelForm):
     class Meta:
         model = Auction
-        fields = ('auction_id', 'auction_start', 'auction_end', 'auctioneer', 'auction_winner')
+        fields = ('auction_id', 'auction_start', 'auction_end', 'auctioneer', 'auction_winner', 'auction_published')
 
 def auction_list(request, template_name='auction/auction_list.html'):
     auction = Auction.objects.all()

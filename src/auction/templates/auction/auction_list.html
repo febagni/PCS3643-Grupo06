@@ -6,10 +6,10 @@
 
 <ul>
     {% for auction in object_list %}
+    {% if auction.auction_published == "published"%}
     <li>{{ auction.auction_id }}  ({{ auction.auctioneer }} Info)
-    <a href="{% url 'auction:auction_edit' auction.id %}">Edit</a>
-    <a href="{% url 'auction:auction_delete' auction.id %}">Delete</a>
     </li>
+    {% endif %}
     {% endfor %}
 </ul>
 
