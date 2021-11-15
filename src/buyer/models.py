@@ -13,7 +13,6 @@ class Auction(models.Model):
     auction_end = models.DateTimeField()
     auctioneer = models.CharField(max_length=50)
     auction_winner = models.CharField(max_length=50)
-    auction_published = models.CharField(max_length=50)
 
     def set_auctioneer_info(self, name, id, contact):
         self.auctioneer_name = name
@@ -41,8 +40,6 @@ class Lot(models.Model):
     number_of_bids_made = models.IntegerField()
     current_winner_buyer = models.CharField(max_length=200)
     highest_value_bid = models.IntegerField()
-
-    auction_ref_id = models.IntegerField()
 
     def get_lot_name(self):
         return self.lot_name

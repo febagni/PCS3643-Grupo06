@@ -11,7 +11,7 @@ from apps.decorators import *
 class AuctionForm(ModelForm):
     class Meta:
         model = Auction
-        fields = ('auction_id', 'auction_start', 'auction_end', 'auctioneer', 'auction_winner')
+        fields = ('auction_id', 'auction_start', 'auction_end', 'auctioneer', 'auction_winner', 'auction_published')
 
 @login_required
 @allowed_users(allowed_roles=['auctioneer'])
@@ -46,22 +46,21 @@ def auction_list_lot(request, template_name='auctioneer/lot_list.html'):
 @login_required
 @allowed_users(allowed_roles=['auctioneer'])
 def auction_add_lot(request, id, pk, template_name='auctioneer/lot_list.html'):
-    auction = get_object_or_404(Auction, pk=pk, user=request.user)
-    form = AuctionForm(request.POST or None, instance=auction)
-    lot = Lot.objects.filter(sequential_uuid=id).update(user=form['auction_id'].value())
-    print(request.user)
+    lot= get_object_or_404(Lot, pk=id)
+    
+    lot.auction_ref_id = pk
+    lot.save()
+
+    print(pk)
     return redirect('auctioneer:auction_list')
 
 @login_required
 @allowed_users(allowed_roles=['auctioneer'])
-def auction_publish(request, template_name='auctioneer/auction_list.html'):
-    form = AuctionForm(request.POST or None)
-    if form.is_valid():
-        auction = form.save(commit=False)
-        auction.user = request.user
-        auction.save()
-        return redirect('auction:auction_list')
-    return render(request, template_name, {'form':form})
+def auction_publish(request, pk, template_name='auctioneer/auction_list.html'):
+    auction= get_object_or_404(Auction, pk=pk)
+    auction.auction_published = "published"
+    auction.save()
+    return redirect('auctioneer:auction_list')
 
 @login_required
 @allowed_users(allowed_roles=['auctioneer'])

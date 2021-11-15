@@ -10,21 +10,28 @@
         Auctioneer: {{auction.auctioneer }}
     <a href="{% url 'auctioneer:auction_edit' auction.id %}">Edit</a>
     <a href="{% url 'auctioneer:auction_delete' auction.id %}">Delete</a>
+    <a href="{% url 'auctioneer:auction_publish' auction.id%}">Publish Auction</a>
     </li>
 
     
     {% for lot in lot_list %}
-    <li style="padding-left:15px">{{ lot.lot_name }}  ({{ lot.minimal_bid }})
-    <a href="{% url 'auctioneer:auction_add_lot' id=lot.sequential_uuid pk=auction.id%}">Add Lot</a>
-    </li>
+    {% if lot.auction_ref_id == auction.auction_id %}
+        <li style="padding-left:15px">{{ lot.lot_name }}  ({{ lot.minimal_bid }})
+        </li>
+    {% endif %}
+
+    {% if lot.auction_ref_id != auction.auction_id %}
+        <li style="padding-left:15px">{{ lot.lot_name }}  ({{ lot.minimal_bid }})
+        <a href="{% url 'auctioneer:auction_add_lot' id=lot.id pk=auction.auction_id%}">Add Lot Here</a>
+        </li>
+    {% endif %}
+
     {% endfor %}
-   
     {% endfor %}
 </ul>
 
 <a href="{% url 'auctioneer:auction_new' %}">Create Auction</a>
 
-<a href="{% url 'auctioneer:auction_publish' %}">Publish Auction</a>
 
 <h3><a href="{% url 'lot_user:lot_list' %}">Available Lots</a></h3>
 

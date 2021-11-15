@@ -136,6 +136,8 @@ O superusuário deve criar os grupos e designar as funções para que os outros 
 
 Atenção, os grupos são case sensitive, ao criá-los, atente-se a escrever exatamente como acima.
 
+Recomenda-se que o superusuário pertença a todos os grupos mencionados acima.
+
 ---
 
 # Testes com Selenium

@@ -20,6 +20,8 @@ class Lot(models.Model):
     current_winner_buyer = models.CharField(max_length=200)
     highest_value_bid = models.IntegerField()
 
+    auction_ref_id = models.IntegerField()
+
     def get_lot_name(self):
         return self.lot_name
 
