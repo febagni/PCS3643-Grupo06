@@ -5,7 +5,7 @@ O seguinte projeto em Django implementa o Bid Coin, um site que implementa um si
 ---
 
 # Instalando as bibliotecas auxiliares
-Para executar o aplicativo, precisamos de um único pacote Python "Django", ele foi construído e testado com a versão Django 2.x. Para instalá-lo, use o seguinte comando:
+Para executar o aplicativo, precisamos de um único pacote Python "Django", ele foi construído e testado com a versão Django 2.x. Para instalá-lo, use o seguinte comando no prompt, entrando na pasta src, onde está o arquivo requirements.txt:
 
 ```bash
     pip3 install -r requirements.txt
@@ -107,7 +107,40 @@ Para acessar no aplicativo vá para o URL <http://localhost:8000/>
 
 ---
 
-## Testes com Selenium
+# Criando e gerenciando contas
+
+O BidCoin funciona com um sistema de permissões, onde podemos dividir as interações que um usuário comum consegue fazer e as páginas que consegue acessar no site com base em seu grupo. Superusuários tem permissão completa no site, incluindo a de criar outros usuários comuns e os atribuir à um ou mais grupos.
+
+## Criando Superusuários
+você pode criar um usuário usando o seguinte comando:
+
+```bash
+    python manage.py createsuperuser
+```
+Para criar um usuário normal (não superusuário), você deve fazer login na página de administração e criá-lo
+: <http://localhost:8000/admin/>
+
+## Criando os grupos de usuários para permissões por conta
+
+Como dito anteriormente, seções do site estão bloqueadas para usuários sem a permissão de vê-los, isto se dá com grupos de autenticação e autorizção. No site, implementamos 3 deles, "auctioneer", "buyer" e "seller".
+
+Cada um deles possui acessos diferentes às páginas do BidCoin, são elas:
+
+- `"auctioneer"` Permissão de CRUD dos leilões criados, CRUD dos Lotes criados.
+
+- `"seller"` CRUD de apenas os Lotes criados pelo próprio usuário.
+
+- `"buyer"` Ainda não implementado métodos adicionais
+
+O superusuário deve criar os grupos e designar as funções para que os outros usuários que não têm a permissão de administrador, isto pode ocorrer durante a sua criação ou posteriormente editando suas informações. Lembrando, para isso o Admin deve fazer login na página de administração: <http://localhost:8000/admin/>
+
+Atenção, os grupos são case sensitive, ao criá-los, atente-se a escrever exatamente como acima.
+
+Recomenda-se que o superusuário pertença a todos os grupos mencionados acima.
+
+---
+
+# Testes com Selenium
 
 Para a execução dos testes de interface com o Selenium, é preciso antes realizar sua instalação. O Selenium é uma extensão de navegadores responsável pela interação automatizada com interfaces de páginas web. No Google Chrome, basta procurar pela extensão Selenium IDE e adicioná-la ao navegador.
 
@@ -116,12 +149,3 @@ Concluída a instalação, a próxima etapa é a de abrir o Selenium IDE, criar 
 Caso esse processo já tenha sido feito, basta abrir o arquivo referente aos casos de testes que possui o formato '.side'.
 
 ---
-
-## Preciso de um usuário e senha para acessar "lot\_user?"
-
-Sim, os "lot\_user" demonstram como CRUD de lotes funcionam com usuários Django, e você precisa criar um usuário para testá-lo,
-você pode criar um usuário usando o seguinte comando:
-    ./manage.py createsuperuser
-
-Para criar um usuário normal (não superusuário), você deve fazer login na página de administração e criá-lo
-: <http://localhost:8000/admin/>

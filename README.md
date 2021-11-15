@@ -92,3 +92,7 @@ Foi feita a detecção de alguns problemas na implementação das classes Auctio
 Foi feita a implementação dos testes com o caso de uso criar lote com uso do Selenium. Foi atualizado o [README](./src/README.md) com as instruções para rodar o projeto de forma local explicando como rodar o projeto.
 
 
+---
+
+## Aula 10 (12/11/2021)
+Foi feito o update do [README](./src/README.md) com as instruções para rodar o projeto de forma local explicando como rodar o projeto. E trabalhadas as implementações dos casos de uso para os testes de integração previstos.

@@ -8,7 +8,6 @@ class Lot(models.Model):
     reserve_price = models.IntegerField()
     sequential_uuid = models.IntegerField()
     minimal_bid = models.IntegerField()
-    lot_photo = models.CharField(max_length=200)
     seller_contact = models.IntegerField()
     lot_description = models.CharField(max_length=200)
     minimum_bid_increment = models.IntegerField()

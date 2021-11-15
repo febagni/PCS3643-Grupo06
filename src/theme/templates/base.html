@@ -21,12 +21,17 @@
             <ul>
                 <li style="font-family: 'Montserrat', sans-serif; font-size:12px;" 
                 th:classappend="${module == 'home' ? 'active' : ''}">
-                 <a href="{% url 'lot:lot_list' %}">Lots (no need to login)</a>
+                 <a href="{% url 'auction:auction_list' %}">Available Auctions</a>
                 </li>	
+
+                <li style="font-family: 'Montserrat', sans-serif; font-size:12px; " 
+                th:classappend="${module == 'home' ? 'active' : ''}">
+                <a href="{% url 'auctioneer:auction_list' %}">Auctioneer</a>
+                </li>
     
                 <li style="font-family: 'Montserrat', sans-serif; font-size:12px; " 
                 th:classappend="${module == 'home' ? 'active' : ''}">
-                <a href="{% url 'lot_user:lot_list' %}">View based on function with user login</a>
+                <a href="{% url 'lot_user:lot_list' %}">Seller</a>
                 </li>
                 
             </ul>

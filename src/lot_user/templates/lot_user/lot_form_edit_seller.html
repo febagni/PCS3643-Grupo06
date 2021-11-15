@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% with blank_default='-' %}
+{% with number_default=0 %}
+
+<h2 style="color:white"><a href="{% url 'lot_user:lot_list' %}">Lot</a>: Edit</h2>
+
+<form style="color:white" method="post">{% csrf_token %}
+    Name: {{ form.lot_name }}<br>
+    Seller Contact: {{ form.seller_contact }} <br>
+    Description: {{ form.lot_description }} <br>
+    Reserve Price: {{ form.reserve_price }} <br>
+    <br>
+    <input type="submit" value="Submit" />
+</form>
+
+{% endwith %}
+{% endwith %}
+
+{% endblock %}

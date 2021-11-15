@@ -140,5 +140,5 @@ STATICFILES_DIRS = [
 ]
 #LOGIN_URL = '/accounts/login/'
 
-LOGIN_REDIRECT_URL =  '/lot_user/'
+LOGIN_REDIRECT_URL =  '/'
 LOGOUT_REDIRECT_URL = '/'

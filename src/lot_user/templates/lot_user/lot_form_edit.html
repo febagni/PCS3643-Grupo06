@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% with blank_default='-' %}
+{% with number_default=0 %}
+
+<h2 style="color:white"><a href="{% url 'lot_user:lot_list' %}">Lot</a>: Edit</h2>
+
+<form style="color:white" method="post">{% csrf_token %}
+
+    Minimal Bid: {{ form.minimal_bid }} <br>
+    Minimum Bid Increment: {{ form.minimum_bid_increment }} <br>
+    Comissions: {{ form.comissions }} <br>
+    Taxes: {{ form.taxes }} <br>
+    <br>
+    
+
+    <input type="submit" value="Submit" />
+</form>
+
+{% endwith %}
+{% endwith %}
+
+{% endblock %}

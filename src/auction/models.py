@@ -9,6 +9,7 @@ class Auction(models.Model):
     auction_end = models.IntegerField()
     auctioneer = models.CharField(max_length=50)
     auction_winner = models.CharField(max_length=50)
+    auction_published = models.CharField(max_length=50)
 
     def __str__(self):
         return self.auction_id
@@ -16,5 +17,3 @@ class Auction(models.Model):
     def get_absolute_url(self):
         return reverse('auction:auction_edit', kwargs={'pk': self.pk})
 
-    #def add_lot(self, lot):
-    #    self.available_lot_list.append(lot)
