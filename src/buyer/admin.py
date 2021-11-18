@@ -1,4 +1,4 @@
 from django.contrib import admin
-from buyer.models import Lot
+from buyer.models import Buyer
 
-admin.site.register(Lot)
+admin.site.register(Buyer)

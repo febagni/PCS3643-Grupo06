@@ -47,7 +47,7 @@ class LotForm(ModelForm):
         self.fields['highest_value_bid'].disabled = True
         self.fields['highest_value_bid'].initial = 0
 
-        self.fields['auction_ref_id'].required = False
+        self.fields['IDauction_ref_id'].required = False
         self.fields['auction_ref_id'].disabled = True
         self.fields['auction_ref_id'].initial = 0
 
@@ -74,8 +74,6 @@ class LotForm(ModelForm):
             'auction_ref_id' 
         ]
 
-
-my_uuid = uuid.uuid4()
 
 @login_required
 @allowed_users(allowed_roles=['auctioneer', 'seller'])

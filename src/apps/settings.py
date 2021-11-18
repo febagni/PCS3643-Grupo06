@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'lot_user', 
     'lot',
     'auction',
-    'auctioneer'  
+    'auctioneer',
+    'buyer'
+
 ]
 
 MIDDLEWARE = [

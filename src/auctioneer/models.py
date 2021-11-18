@@ -13,7 +13,7 @@ class Auction(models.Model):
     auction_end = models.DateTimeField()
     auctioneer = models.CharField(max_length=50)
     auction_winner = models.CharField(max_length=50)
-    auction_published = models.CharField(max_length=50)
+    auction_status = models.CharField(max_length=50)
 
     def set_auctioneer_info(self, name, id, contact):
         self.auctioneer_name = name

@@ -2,17 +2,34 @@
 
 {% block content %}
 
-<h2><a href="{% url 'auction:auction_list' %}">auctions</a></h2>
+<h2><a href="{% url 'auction:auction_list' %}"> Available Auctions</a></h2>
 
-<ul>
+<ul style="padding-left:15px">
     {% for auction in object_list %}
-    {% if auction.auction_published == "published"%}
-    <li>{{ auction.auction_id }}  ({{ auction.auctioneer }} Info)
+    {% for lot in lot_list %}
+    {% if auction.auction_status == "published"%}
+    <br>
+    <li style="color:white"> Auction ID: {{ auction.auction_id }} <br>
+        <ul style="padding-left:30px">
+            <li> Start Date: {{ auction.auction_start }} </li>
+            <li> End Date: {{ auction.auction_end }} </li>
+            {% if lot.auction_ref_id == auction.auction_id %}
+                <li style="color:white">Available Lots in this Auction: <br>
+                    <ul style="padding-left:45px">
+                    <li> Lot name: {{ lot.lot_name }}  | <a href="{% url 'auction:make_bid' auction.id lot.id%}"> Make a Bid </a> </li>
+                        <ul style="padding-left:60px; font-size:14px">
+                            <li> Number of Bids Made: {{ lot.number_of_bids_made }} </li>
+                            <li> Current Winner Buyer: {{ lot.current_winner_buyer }} </li>
+                            <li> Highest Value Bid: {{ lot.highest_value_bid }} </li>
+                        </ul>
+                    </ul>
+                </li>
+            {% endif %}
+        </ul>
     </li>
     {% endif %}
     {% endfor %}
+    {% endfor %}
 </ul>
-
-<a href="{% url 'auction:auction_new' %}">Novo</a>
 
 {% endblock %}
