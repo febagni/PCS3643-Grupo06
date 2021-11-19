@@ -1,4 +1,5 @@
 Django>=3.1.2
 PyMySQL>=1.0.2
 uuid>=1.30
-django-background-task>=0.1.8
+reportlab>=3.6.2
+python-dateutil>=2.8.2

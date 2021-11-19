@@ -10,7 +10,7 @@
 
 <ul style="padding-left:50px">
 
-    <li> Name: {{ lot.lot_name }} </li>
+    <li>Name: {{ lot.lot_name }} </li>
     <li>Seller Contact (E-mail): {{ lot.seller_contact }} </li>
     <li>Description: {{ lot.lot_description }} </li>
        
@@ -21,7 +21,6 @@
     <li>Current Winner Buyer: {{ lot.current_winner_buyer }} </li>
     <li>Highest Value Bid (USD): {{ lot.highest_value_bid }} </li>
     
-
 </ul>
 
 <br><hr><br>
@@ -37,9 +36,11 @@
 
 {% if messages %}
     {% for message in messages %}
-     <h3{% if message.tags %} class="{{ message.tags }}"{% endif %} style="padding-left:50px;color:red"> {{ message }} </h3>
+        <script type="text/javascript">
+            alert("Oops...invalid bid! Please enter a valid value.");
+        </script>
+        {% comment %} <h3{% if message.tags %} class="{{ message.tags }}"{% endif %} style="padding-left:50px;color:red"> {{ message }} </h3> {% endcomment %}
     {% endfor %}
-
 {% endif %}
 
 {% endblock %}

@@ -32,9 +32,13 @@
     {% endif %}
 
     {% endfor %}
+    {% if auction.auction_status == "FINISHED" %}
+        <a href="{% url 'auctioneer:auction_performance_report' auction.id%}">Get Performance Report |</a>
+        <a href="{% url 'auctioneer:auction_financial_report' auction.id%}">Get Financial Report </a>
+    {% endif %}
     {% endfor %}
 </ul>
-
+<br>
 <a href="{% url 'auctioneer:auction_new' %}">Create Auction</a>
 
 

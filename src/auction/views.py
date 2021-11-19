@@ -3,25 +3,47 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import ModelForm
 from django.contrib import messages
+from django.utils import timezone
+
+from datetime import date, datetime, time, timedelta
+from dateutil.tz import tzoffset
+from pytz import timezone
 
 from buyer.views import BuyerForm
 from auctioneer.models import Auction
 from lot_user.models import Lot
+from lot.models import LotList
 
 from apps.decorators import *
 
 class AuctionForm(ModelForm):
     class Meta:
         model = Auction
-        fields = ('auction_id', 'auction_start', 'auction_end', 'auctioneer', 'auction_winner', 'auction_status')
+        fields = ('auction_id', 'auction_start', 'auction_end', 'auctioneer', 'auction_status', 'auction_published')
 
 def auction_list(request, template_name='auction/auction_list.html'):
     auction = Auction.objects.all()
     data = {}
     data['object_list'] = auction
-
+    
     lot = Lot.objects.all()
     data['lot_list'] = lot
+
+    current_date = datetime.today()
+    data['today'] = current_date
+
+    for i in range(len(auction)):
+        end_date = Auction.objects.values_list('auction_end')[i][0].replace(tzinfo=None)
+        start_date = Auction.objects.values_list('auction_start')[i][0].replace(tzinfo=None)
+        iterable_pk = Auction.objects.values_list('id')[i][0]
+        if current_date < end_date:
+            if current_date >= start_date:
+                Auction.objects.filter(pk=iterable_pk).update(auction_status="ON GOING")
+            else:
+                Auction.objects.filter(pk=iterable_pk).update(auction_status="TO BE STARTED")
+        else:
+            Auction.objects.filter(pk=iterable_pk).update(auction_status="FINISHED")
+
     return render(request, template_name, data)
 
 def update_valid_bid(request, lot, bid):
@@ -34,6 +56,7 @@ def update_valid_bid(request, lot, bid):
 @allowed_users(allowed_roles=['buyer'])
 def make_bid(request, id, pk, template_name='auction/auction_bid.html'):
     lot = get_object_or_404(Lot, pk=pk)
+    #LotList = addBidToLotList(lot)
     data = {}
     data['lot'] = lot
 
@@ -64,27 +87,8 @@ def make_bid(request, id, pk, template_name='auction/auction_bid.html'):
 
     return render(request, template_name, data)
 
+def get_today():
+    return datetime.now()
 
-####### as funcoes abaixo nao estao sendo utilizadas
-
-def auction_create(request, template_name='auction/auction_form.html'):
-    form = AuctionForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('auction:auction_list')
-    return render(request, template_name, {'form':form})
-
-def auction_update(request, pk, template_name='auction/auction_form.html'):
-    auction= get_object_or_404(Auction, pk=pk)
-    form = AuctionForm(request.POST or None, instance=auction)
-    if form.is_valid():
-        form.save()
-        return redirect('auction:auction_list')
-    return render(request, template_name, {'form':form})
-
-def auction_delete(request, pk, template_name='auction/auction_confirm_delete.html'):
-    auction= get_object_or_404(Auction, pk=pk)    
-    if request.method=='POST':
-        auction.delete()
-        return redirect('auction:auction_list')
-    return render(request, template_name, {'object':auction})
+def get_time():
+    return datetime.now().time()

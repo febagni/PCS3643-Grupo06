@@ -34,3 +34,9 @@ class Lot(models.Model):
     def get_absolute_url(self):
         return reverse('lot:lot_edit', kwargs={'pk': self.pk})
     
+class LotList():
+
+    array = []
+
+    def addBidToLotList(bid):
+        array.append(bid)

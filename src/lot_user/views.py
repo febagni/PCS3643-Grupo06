@@ -47,9 +47,9 @@ class LotForm(ModelForm):
         self.fields['highest_value_bid'].disabled = True
         self.fields['highest_value_bid'].initial = 0
 
-        self.fields['IDauction_ref_id'].required = False
+        self.fields['auction_ref_id'].required = False
         self.fields['auction_ref_id'].disabled = True
-        self.fields['auction_ref_id'].initial = 0
+        self.fields['auction_ref_id'].initial = -999
 
 
     class Meta:

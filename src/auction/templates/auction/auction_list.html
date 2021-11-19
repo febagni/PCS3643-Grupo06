@@ -4,31 +4,75 @@
 
 <h2><a href="{% url 'auction:auction_list' %}"> Available Auctions</a></h2>
 
+<h4 style="color:white"> Today: {{ today }} </h4>
+
 <ul style="padding-left:15px">
     {% for auction in object_list %}
-    {% for lot in lot_list %}
-    {% if auction.auction_status == "published"%}
-    <br>
-    <li style="color:white"> Auction ID: {{ auction.auction_id }} <br>
-        <ul style="padding-left:30px">
-            <li> Start Date: {{ auction.auction_start }} </li>
-            <li> End Date: {{ auction.auction_end }} </li>
-            {% if lot.auction_ref_id == auction.auction_id %}
-                <li style="color:white">Available Lots in this Auction: <br>
-                    <ul style="padding-left:45px">
-                    <li> Lot name: {{ lot.lot_name }}  | <a href="{% url 'auction:make_bid' auction.id lot.id%}"> Make a Bid </a> </li>
-                        <ul style="padding-left:60px; font-size:14px">
-                            <li> Number of Bids Made: {{ lot.number_of_bids_made }} </li>
-                            <li> Current Winner Buyer: {{ lot.current_winner_buyer }} </li>
-                            <li> Highest Value Bid: {{ lot.highest_value_bid }} </li>
-                        </ul>
-                    </ul>
-                </li>
-            {% endif %}
-        </ul>
-    </li>
-    {% endif %}
-    {% endfor %}
+        {% if auction.auction_published == True %}
+        <br>
+        <li style="color:white"> Auction ID: {{ auction.auction_id }} <br>
+            <ul style="padding-left:30px">
+                <li> Start Date: {{ auction.auction_start }} </li>
+                <li> End Date: {{ auction.auction_end }} </li>
+                <li> Status: {{ auction.auction_status }}</li>
+
+                    <li style="color:white">Available Lots in this Auction: <br>
+                        {% for lot in lot_list %}
+                            {% if lot.auction_ref_id == auction.auction_id %}
+
+                            <input type="button" onclick="hideLink()" value="Hide" />
+                            <input type="button" onclick="showLink()" value="Show" /> <br>
+                            
+                            <div>
+                                <ul style="padding-left:45px">
+                                    <li> Lot name: {{ lot.lot_name }}</li>
+                                        <a href="{% url 'auction:make_bid' auction.id lot.id%}"><button>Make a Bid!</button> </a>
+
+                                        <button id="showResultsId">Show results</button>
+                                        <script>
+                                            var lot_id1 = "{{lot.highest_value_bid}}";
+                                            var auction_status = "{{auction.auction_status}}";
+                                            document.getElementById("showResultsId").onclick = function () {
+                                                if (auction_status == "FINISHED") {
+                                                    alert(lot_id1);
+                                                }
+                                            }
+                                        </script>
+
+                                        <ul style="padding-left:60px; font-size:14px" id="divId">
+                                            <li> Number of Bids Made: {{ lot.number_of_bids_made }} </li>
+                                            <li> Current Winner Buyer: {{ lot.current_winner_buyer }} </li>
+                                            <li> Highest Value Bid: {{ lot.highest_value_bid }} </li>
+                                        </ul>
+                                </ul>
+                            </div>
+
+                            <script>
+                                var reserve_price = "{{lot.reserve_price}}";
+                                var highest_value_bid = "{{lot.highest_value_bid}}";
+                                var lot_id = "{{ lot.lot_id }}";
+                                //var lot_id = document.getElementById("");
+                                var auction_status = "{{auction.auction_status}}";
+                                document.getElementById("lot_id").style.display = "none";
+                                //lot_id = document.getElementById(lot_id);
+
+                                window.hideLink = function hideLink() {
+                                    document.getElementById(lot_id).style.visibility = "hidden";
+                                };
+
+                                function showLink()
+                                {
+                                    document.getElementById("{{ lot.lot_id }}").style.visibility = "visible";
+                                }
+                            </script>
+
+                            
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                </ul>
+            </li>
+        {% endif %}
     {% endfor %}
 </ul>
 

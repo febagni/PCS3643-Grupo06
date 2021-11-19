@@ -13,4 +13,6 @@ urlpatterns = [
   path('cancel/<int:pk>/', views.auction_cancel, name='auction_cancel'),
   path('edit/<int:pk>/', views.auction_update, name='auction_edit'),
   path('delete/<int:pk>/', views.auction_delete, name='auction_delete'),
+  path('performance_rep/<int:pk>/', views.auction_performance_report, name='auction_performance_report'),
+  path('financial_rep/<int:pk>/', views.auction_financial_report, name='auction_financial_report'),
 ]
