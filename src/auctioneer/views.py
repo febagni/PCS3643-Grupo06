@@ -15,12 +15,9 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import A4, letter
 from reportlab.platypus.flowables import Image
+from reportlab.platypus import Table, TableStyle
+from reportlab.lib import colors
 
-from reportlab.graphics.shapes import Drawing
-from reportlab.lib.colors import purple, PCMYKColor, red, Color, CMYKColor, yellow
-from reportlab.graphics.charts.linecharts import HorizontalLineChart
-from reportlab.graphics.charts.barcharts import VerticalBarChart
-from reportlab.graphics import renderPDF
 
 class AuctionForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -114,23 +111,27 @@ def auction_delete(request, pk, template_name='auctioneer/auction_confirm_delete
         return redirect('auctioneer:auction_list')
     return render(request, template_name, {'object':auction})
 
+def report_header(title):
+    buffer = io.BytesIO()
+    canv = canvas.Canvas(buffer, pagesize=A4, bottomup=0)
+    textob = canv.beginText()
+    
+    textob.setTextOrigin(inch, inch)
+    textob.setFont("Helvetica", 20)
+    textob.textLine("")
+    textob.textLine(title)
+    textob.setFont("Helvetica", 12)
+    canv.drawImage(image="theme/static/images/BidCoin.png", x=20.0,y=20.0, width=134.4,height=33.0,mask=None, preserveAspectRatio='nw')
+
+    return buffer, canv, textob
+
 @login_required
 @allowed_users(allowed_roles=['auctioneer'])
 def auction_performance_report(request, pk):
     auc = Auction.objects.filter(pk=pk)
     auction_id = auc.values_list('auction_id')[0][0]
 
-    buffer = io.BytesIO()
-    canv = canvas.Canvas(buffer, pagesize=A4, bottomup=0)
-    textob = canv.beginText()
-    #im = Image("../theme/static/images/logo.png", width=2*inch, height=2*inch)
-    # canv.drawImage(image="theme/static/images/background_image.jpeg", x=0,y=0, width=500.0,height=500.0,mask=None)
-    textob.setTextOrigin(inch, inch)
-    textob.setFont("Helvetica", 16)
-    textob.textLine("")
-    textob.textLine("Performance Report")
-    textob.setFont("Helvetica", 12)
-    canv.drawImage(image="theme/static/images/BidCoin.png", x=20.0,y=20.0, width=134.4,height=33.0,mask=None, preserveAspectRatio='nw')
+    buffer, canv, textob = report_header("Performance Report")
 
     lots = Lot.objects.filter(auction_ref_id=auction_id)
     lines = [
@@ -139,33 +140,45 @@ def auction_performance_report(request, pk):
         "Auction ID: " + str(auction_id),
         ""
     ]
-    for i in range(len(lots)):
-        lot_name = lots.values_list('lot_name')[i][0]
-        bids_made = lots.values_list('number_of_bids_made')[i][0]
-        lines.append("Lot Name: " + str(lot_name))
-        lines.append("Number of Bids Made: " + str(bids_made))
-        lines.append("")
+
     for line in lines:
         textob.textLine(line)
 
-    drawing = Drawing(300, 150)
-    lc = HorizontalLineChart()
-    lc.x = 20
-    lc.y = 200
-    lc.height = 120
-    lc.width = 240
-    drawing.hAlign = 'CENTER'
-    drawing.add(lc)
+    tab_data = []
 
-    bc = VerticalBarChart()
-    bc.height = 120
-    bc.width = 240
-    bc.barSpacing = 4
-    bc.barWidth = 14
-    drawing.add(bc)
+    for i in range(len(lots)):
+        lot_name = lots.values_list('lot_name')[i][0]
+        bids_made = lots.values_list('number_of_bids_made')[i][0]
+        current_winner_buyer = lots.values_list('current_winner_buyer')[i][0]
+        
+        if lots.values_list('is_higher_than_reserve')[i][0] == "TRUE":
+            tab_data.append([" "])
+            tab_data.append(["Number of Bids Made: " + str(bids_made)])
+            tab_data.append(["Winner username: " + str(current_winner_buyer)])
+            tab_data.append(["Lot Name: " + str(lot_name)])
+            tab_data.append([" "])
+        else:
+            tab_data.append(["The reserve price could not be matched."])
+            tab_data.append(["Lot Name: " + str(lot_name)])
+            tab_data.append([" "])
 
-    drawing.save()
-    renderPDF.draw(drawing, canv, x=250, y=100, showBoundary=False)
+
+    width = 400
+    height = 100
+    x = 70
+    y = 150
+    f = Table(tab_data)
+    GRID_STYLE = TableStyle(
+        [
+            ('INNERGRID', (0, 0), (-1, -1), 0.25, colors.HexColor('#00FFFFFF')),
+            ('BOX', (0, 0), (-1, -1), 0.25, colors.black),
+            ('LINEAFTER', (0,0), (-1,-1), 0.25, colors.black),
+
+        ]
+    )
+    f.setStyle(GRID_STYLE)
+    f.wrapOn(canv, width, height)
+    f.drawOn(canv, x, y)
 
     canv.drawText(textob)
     canv.showPage()
@@ -182,17 +195,7 @@ def auction_financial_report(request, pk):
     auc = Auction.objects.filter(pk=pk)
     auction_id = auc.values_list('auction_id')[0][0]
 
-    buffer = io.BytesIO()
-    canv = canvas.Canvas(buffer, pagesize=A4, bottomup=0)
-    textob = canv.beginText()
-    #im = Image("../theme/static/images/logo.png", width=2*inch, height=2*inch)
-    # canv.drawImage(image="theme/static/images/background_image.jpeg", x=0,y=0, width=500.0,height=500.0,mask=None)
-    textob.setTextOrigin(inch, inch)
-    textob.setFont("Helvetica", 16)
-    textob.textLine("")
-    textob.textLine("Financial Report")
-    textob.setFont("Helvetica", 12)
-    canv.drawImage(image="theme/static/images/BidCoin.png", x=20.0,y=20.0, width=134.4,height=33.0,mask=None, preserveAspectRatio='nw')
+    buffer, canv, textob = report_header("Financial Report")
 
     lots = Lot.objects.filter(auction_ref_id=auction_id)
     lines = [
@@ -201,6 +204,14 @@ def auction_financial_report(request, pk):
         "Auction ID: " + str(auction_id),
         ""
     ]
+
+    for line in lines:
+        textob.textLine(line)
+
+    tab_data = []
+    gross_revenue = 0
+    liquid_revenue = 0
+
     for i in range(len(lots)):
         lot_name = lots.values_list('lot_name')[i][0]
         bids_made = lots.values_list('number_of_bids_made')[i][0]
@@ -209,42 +220,195 @@ def auction_financial_report(request, pk):
         comissions = lots.values_list('comissions')[i][0]
         taxes = lots.values_list('taxes')[i][0]
 
-        lines.append("Lot Name: " + str(lot_name))
-        lines.append("Number of Bids Made: " + str(bids_made))
-        lines.append("Winner Bid: $" + str(highest_value_bid))
-        lines.append("Winner username: " + str(current_winner_buyer))
-        lines.append("Comissions: " + str(comissions) + "%")
-        lines.append("Taxes: " + str(taxes) + "%")
-        lines.append(" ")
+        if lots.values_list('is_higher_than_reserve')[i][0] == "TRUE":
+            tab_data.append([" "])
+            tab_data.append(["Taxes: " + str(taxes) + "% = USD" + str(taxes*highest_value_bid/100)])
+            tab_data.append(["Comissions: " + str(comissions) + "% = USD"+ str(comissions*highest_value_bid/100)])
+            tab_data.append(["Number of Bids Made: " + str(bids_made)])
+            tab_data.append(["Winner username: " + str(current_winner_buyer)])
+            tab_data.append(["Winner Bid: USD" + str(highest_value_bid)])
+            tab_data.append(["Lot Name: " + str(lot_name)])
+            tab_data.append([" "])
         
+            gross_revenue = gross_revenue + highest_value_bid
+            liquid_revenue = gross_revenue - taxes*highest_value_bid/100
 
-    for line in lines:
-        textob.textLine(line)
+    tab_data.append(["Auction liquid revenue: USD" + str(liquid_revenue)])
+    tab_data.append(["Auction gross revenue: USD" + str(gross_revenue)])
 
-    drawing = Drawing(300, 150)
-    lc = HorizontalLineChart()
-    lc.x = 20
-    lc.y = 200
-    lc.height = 120
-    lc.width = 240
-    drawing.hAlign = 'CENTER'
-    drawing.add(lc)
+    tab_data.append([" "])
 
-    bc = VerticalBarChart()
-    bc.height = 120
-    bc.width = 240
-    bc.barSpacing = 4
-    bc.barWidth = 14
-    drawing.add(bc)
+    width = 400
+    height = 100
+    x = 70
+    y = 150
+    f = Table(tab_data)
+    GRID_STYLE = TableStyle(
+        [
+            ('INNERGRID', (0, 0), (-1, -1), 0.25, colors.HexColor('#00FFFFFF')),
+            ('BOX', (0, 0), (-1, -1), 0.25, colors.black),
+            ('LINEAFTER', (0,0), (-1,-1), 0.25, colors.black),
 
-    drawing.save()
-    renderPDF.draw(drawing, canv, x=270, y=100, showBoundary=False)
+        ]
+    )
+    f.setStyle(GRID_STYLE)
+    f.wrapOn(canv, width, height)
+    f.drawOn(canv, x, y)
 
     canv.drawText(textob)
     canv.showPage()
     canv.save()
     buffer.seek(0)
     
-    file = "auction" + ".pdf"
+    file = "auction.pdf"
+
+    return FileResponse(buffer, as_attachment=True, filename=file)
+
+
+@login_required
+@allowed_users(allowed_roles=['auctioneer'])
+def full_performance_report(request):
+    auction = Auction.objects.all()
+
+    total_auctions = len(auction)
+    total_finished_lot_bids = 0
+    total_not_finished_lot_bids = 0
+
+    total_finished_lots = 0
+    total_not_finished_lots = 0
+    
+    buffer, canv, textob = report_header("Full Performance Report")
+    textob.textLine("User: " + str(request.user))
+
+    for index in range(total_auctions):
+        if auction.values_list('auction_status')[index][0] == "FINISHED":
+            auction_id = auction.values_list('auction_id')[index][0]
+            start_date = auction.values_list('auction_start')[index][0]
+            end_date = auction.values_list('auction_end')[index][0]
+            
+            lines = [
+                "",
+                "Auction ID: " + str(auction_id),
+                "Start date: " + str(start_date.date()),
+                "End date: " + str(end_date.date()),
+            ]
+
+            for line in lines:
+                textob.textLine(line)
+
+            tab_data = []
+            lots = Lot.objects.filter(auction_ref_id=auction_id)
+            number_of_lots = len(lots)
+
+            finished_lots = 0
+            not_finished_lots = 0
+
+            for i in range(number_of_lots):
+                
+                if lots.values_list('is_higher_than_reserve')[i][0] == "TRUE":
+                    finished_lots = finished_lots + 1
+                    total_finished_lot_bids = total_finished_lot_bids + lots.values_list('number_of_bids_made')[i][0]
+                else:
+                    not_finished_lots = not_finished_lots + 1
+                    total_not_finished_lot_bids = total_not_finished_lot_bids + lots.values_list('number_of_bids_made')[i][0]
+
+            total_finished_lots = total_finished_lots + finished_lots
+            total_not_finished_lots = total_not_finished_lots + not_finished_lots
+
+            textob.textLine(" ")
+            textob.textLine("Auction performance: ")
+            textob.textLine("Number of sold lots in this auction: " + str(finished_lots))
+            textob.textLine("Number of unsold lots in this auction: " + str(not_finished_lots))
+    
+    textob.textLine(" ")
+    textob.setFont("Helvetica", 16)
+    textob.textLine("General performance: ")
+    textob.setFont("Helvetica", 14)
+    textob.textLine("Total number of auctions: " + str(total_auctions))
+    textob.textLine("Number of sold lots in this period: " + str(total_finished_lots))
+    textob.textLine("Number of unsold lots in this period: " + str(total_not_finished_lots))
+
+    canv.drawText(textob)
+    canv.showPage()
+    canv.save()
+    buffer.seek(0)
+    
+    file = "full_auction_performance_report.pdf"
+
+    return FileResponse(buffer, as_attachment=True, filename=file)
+
+
+
+@login_required
+@allowed_users(allowed_roles=['auctioneer'])
+def full_financial_report(request):
+    auction = Auction.objects.all()
+
+    total_auctions = len(auction)
+    total_gross_revenue = 0
+    total_taxes_revenue = 0
+    total_comission_revenue = 0
+    
+    buffer, canv, textob = report_header("Full Financial Report")
+    
+    textob.textLine("User: " + str(request.user))
+
+    for index in range(total_auctions):
+        auction_id = auction.values_list('auction_id')[index][0]
+        start_date = auction.values_list('auction_start')[index][0]
+        end_date = auction.values_list('auction_end')[index][0]
+        
+        lines = [
+            "",
+            "Auction ID: " + str(auction_id),
+            "Start date: " + str(start_date.date()),
+            "End date: " + str(end_date.date()),
+            ""
+        ]
+
+        for line in lines:
+            textob.textLine(line)
+
+        lots = Lot.objects.filter(auction_ref_id=auction_id)
+        number_of_lots = len(lots)
+
+        gross_revenue = 0
+        taxes_revenue = 0
+        comission_revenue = 0
+
+        for i in range(number_of_lots):
+            
+            highest_value_bid = lots.values_list('highest_value_bid')[i][0]
+            comissions = lots.values_list('comissions')[i][0]
+            taxes = lots.values_list('taxes')[i][0]
+
+            if lots.values_list('is_higher_than_reserve')[i][0] == "TRUE":
+                gross_revenue = gross_revenue + highest_value_bid
+                comission_revenue = comission_revenue + comissions*highest_value_bid/100
+            taxes_revenue = taxes_revenue + taxes*highest_value_bid/100
+        
+        total_gross_revenue = total_gross_revenue + gross_revenue
+        total_taxes_revenue = total_taxes_revenue + taxes_revenue 
+        total_comission_revenue = total_comission_revenue + comission_revenue 
+
+        textob.textLine("Auction taxes revenue: USD" + str(taxes_revenue))
+        textob.textLine("Auction comission revenue: USD" + str(comission_revenue))
+        textob.textLine("Auction gross revenue: USD" + str(gross_revenue))
+
+
+    textob.textLine(" ")
+    textob.setFont("Helvetica", 16)
+    textob.textLine("General performance: ")
+    textob.setFont("Helvetica", 14)
+    textob.textLine("Taxes revenue of this period: USD" + str(total_taxes_revenue))
+    textob.textLine("Comissions revenue of this period: USD" + str(total_comission_revenue))
+    textob.textLine("Gross revenue of this period: USD" + str(total_gross_revenue))
+
+    canv.drawText(textob)
+    canv.showPage()
+    canv.save()
+    buffer.seek(0)
+    
+    file = "full_auction_financial_report.pdf"
 
     return FileResponse(buffer, as_attachment=True, filename=file)

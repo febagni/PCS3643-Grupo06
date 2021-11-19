@@ -12,7 +12,7 @@ from pytz import timezone
 from buyer.views import BuyerForm
 from auctioneer.models import Auction
 from lot_user.models import Lot
-from lot.models import LotList
+
 
 from apps.decorators import *
 
@@ -50,13 +50,17 @@ def update_valid_bid(request, lot, bid):
     lot.number_of_bids_made += 1
     lot.current_winner_buyer = str(request.user)
     lot.highest_value_bid = bid.bid_value
+    if lot.reserve_price <= lot.highest_value_bid: 
+        lot.is_higher_than_reserve = "TRUE"
+    print(lot.is_higher_than_reserve)
     lot.save()
+    pass
 
 @login_required
 @allowed_users(allowed_roles=['buyer'])
 def make_bid(request, id, pk, template_name='auction/auction_bid.html'):
     lot = get_object_or_404(Lot, pk=pk)
-    #LotList = addBidToLotList(lot)
+    #LotList.addBidToLotList(lot)
     data = {}
     data['lot'] = lot
 

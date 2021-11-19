@@ -35,11 +35,14 @@
     {% if auction.auction_status == "FINISHED" %}
         <a href="{% url 'auctioneer:auction_performance_report' auction.id%}">Get Performance Report |</a>
         <a href="{% url 'auctioneer:auction_financial_report' auction.id%}">Get Financial Report </a>
+        <br>
     {% endif %}
     {% endfor %}
 </ul>
 <br>
-<a href="{% url 'auctioneer:auction_new' %}">Create Auction</a>
+<a href="{% url 'auctioneer:auction_new' %}">Create Auction</a> <br>
+<a href="{% url 'auctioneer:full_performance_report'%}">Get Full Performance Report |</a>
+<a href="{% url 'auctioneer:full_financial_report'%}">Get Full Financial Report</a>
 
 
 {% endblock %}

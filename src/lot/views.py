@@ -21,7 +21,8 @@ class LotForm(ModelForm):
             'sequential_uuid',
             'number_of_bids_made',
             'current_winner_buyer',
-            'highest_value_bid' 
+            'highest_value_bid',
+            'is_higher_than_reserve'
         ]
 
 def lot_list(request, template_name='lot/lot_list.html'):
