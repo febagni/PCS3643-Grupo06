@@ -17,6 +17,8 @@ class Lot(models.Model):
     current_winner_buyer = models.CharField(max_length=200)
     highest_value_bid = models.IntegerField()
 
+    is_higher_than_reserve = models.CharField(max_length=5)
+
     def get_lot_name(self):
         return self.lot_name
 
@@ -33,4 +35,3 @@ class Lot(models.Model):
 
     def get_absolute_url(self):
         return reverse('lot:lot_edit', kwargs={'pk': self.pk})
-    

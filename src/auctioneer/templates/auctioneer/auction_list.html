@@ -8,31 +8,41 @@
     {% for auction in object_list %}
     <li>ID: {{auction.auction_id }}
         Auctioneer: {{auction.auctioneer }}
-    <a href="{% url 'auctioneer:auction_edit' auction.id %}">Edit</a>
-    <a href="{% url 'auctioneer:auction_delete' auction.id %}">Delete</a>
-    <a href="{% url 'auctioneer:auction_publish' auction.id%}">Publish Auction</a>
+    <a href="{% url 'auctioneer:auction_edit' auction.id %}">Edit | </a>
+    <a href="{% url 'auctioneer:auction_delete' auction.id %}">Delete |</a>
+    <a href="{% url 'auctioneer:auction_publish' auction.id%}">Publish Auction |</a>
+    <a href="{% url 'auctioneer:auction_cancel' auction.id%}">Cancel Auction </a>
     </li>
 
     
     {% for lot in lot_list %}
     {% if lot.auction_ref_id == auction.auction_id %}
         <li style="padding-left:15px">{{ lot.lot_name }}  ({{ lot.minimal_bid }})
+            <a href="{% url 'lot_user:lot_edit' lot.id %}">Edit |</a>
+            <a href="{% url 'lot_user:lot_detail' lot.id %}">Details</a>
         </li>
     {% endif %}
 
     {% if lot.auction_ref_id != auction.auction_id %}
         <li style="padding-left:15px">{{ lot.lot_name }}  ({{ lot.minimal_bid }})
+            <a href="{% url 'lot_user:lot_edit' lot.id %}">Edit |</a>
+            <a href="{% url 'lot_user:lot_detail' lot.id %}">Details |</a>
         <a href="{% url 'auctioneer:auction_add_lot' id=lot.id pk=auction.auction_id%}">Add Lot Here</a>
         </li>
     {% endif %}
 
     {% endfor %}
+    {% if auction.auction_status == "FINISHED" %}
+        <a href="{% url 'auctioneer:auction_performance_report' auction.id%}">Get Performance Report |</a>
+        <a href="{% url 'auctioneer:auction_financial_report' auction.id%}">Get Financial Report </a>
+        <br>
+    {% endif %}
     {% endfor %}
 </ul>
+<br>
+<a href="{% url 'auctioneer:auction_new' %}">Create Auction</a> <br>
+<a href="{% url 'auctioneer:full_performance_report'%}">Get Full Performance Report |</a>
+<a href="{% url 'auctioneer:full_financial_report'%}">Get Full Financial Report</a>
 
-<a href="{% url 'auctioneer:auction_new' %}">Create Auction</a>
-
-
-<h3><a href="{% url 'lot_user:lot_list' %}">Available Lots</a></h3>
 
 {% endblock %}

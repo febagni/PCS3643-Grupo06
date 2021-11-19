@@ -5,7 +5,7 @@
 body {
     width:800px;
     /* margin:auto; */
-    background-size: cover;
+    background-size: cover;	
 	font-size: 16px;
 	font-family: 'Lato', sans-serif;
 	font-weight: 300;
@@ -39,6 +39,7 @@ body {
     background: url(../images/background_image.jpeg); 
     background-size: cover;
     background-repeat: no-repeat;
+	background-color: #131111;
     margin: 0;
     height: 100vh;
   }

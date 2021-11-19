@@ -49,7 +49,11 @@ class LotForm(ModelForm):
 
         self.fields['auction_ref_id'].required = False
         self.fields['auction_ref_id'].disabled = True
-        self.fields['auction_ref_id'].initial = 0
+        self.fields['auction_ref_id'].initial = -999
+
+        self.fields['is_higher_than_reserve'].required = False
+        self.fields['is_higher_than_reserve'].disabled = True
+        self.fields['is_higher_than_reserve'].initial = "FALSE"
 
 
     class Meta:
@@ -71,11 +75,10 @@ class LotForm(ModelForm):
             'current_winner_buyer',
             'highest_value_bid',
             #auction
-            'auction_ref_id' 
+            'auction_ref_id',
+            'is_higher_than_reserve'
         ]
 
-
-my_uuid = uuid.uuid4()
 
 @login_required
 @allowed_users(allowed_roles=['auctioneer', 'seller'])
