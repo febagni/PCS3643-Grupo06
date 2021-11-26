@@ -122,8 +122,7 @@ def lot_update(request, pk, template_name='lot_user/lot_form_edit.html'):
         form.fields['reserve_price'].disabled = True
         form.fields['minimal_bid'].disabled = False
         form.fields['minimum_bid_increment'].disabled = False
-        form.fields['comissions'].disabled = False
-        form.fields['taxes'].disabled = False
+
     elif request.user.groups.all()[0].name == 'seller':
         template_name = 'lot_user/lot_form_edit_seller.html'
         form.fields['lot_name'].disabled = False

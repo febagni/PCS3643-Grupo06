@@ -66,6 +66,22 @@ def auction_list_lot(request, template_name='auctioneer/lot_list.html'):
 def auction_add_lot(request, id, pk, template_name='auctioneer/lot_list.html'):
     lot = get_object_or_404(Lot, pk=id)
     lot.auction_ref_id = pk
+    if lot.reserve_price <= 1000:
+        lot.taxes =  1
+        lot.comissions = 3
+    elif lot.reserve_price > 1000 and lot.reserve_price <= 10000:
+        lot.taxes = 2
+        lot.comissions = 4
+    elif lot.reserve_price > 10000 and lot.reserve_price < 50000:
+        lot.taxes = 3
+        lot.comissions = 5
+    elif lot.reserve_price > 50000 and lot.reserve_price < 100000:
+        lot.taxes = 4
+        lot.comissions = 6
+    else:
+        lot.taxes = 5
+        lot.comissions = 7
+        
     lot.save()
 
     return redirect('auctioneer:auction_list')
