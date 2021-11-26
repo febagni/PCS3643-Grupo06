@@ -66,6 +66,22 @@ def auction_list_lot(request, template_name='auctioneer/lot_list.html'):
 def auction_add_lot(request, id, pk, template_name='auctioneer/lot_list.html'):
     lot = get_object_or_404(Lot, pk=id)
     lot.auction_ref_id = pk
+    if lot.reserve_price <= 1000:
+        lot.taxes =  1
+        lot.comissions = 3
+    elif lot.reserve_price > 1000 and lot.reserve_price <= 10000:
+        lot.taxes = 2
+        lot.comissions = 4
+    elif lot.reserve_price > 10000 and lot.reserve_price < 50000:
+        lot.taxes = 3
+        lot.comissions = 5
+    elif lot.reserve_price > 50000 and lot.reserve_price < 100000:
+        lot.taxes = 4
+        lot.comissions = 6
+    else:
+        lot.taxes = 5
+        lot.comissions = 7
+        
     lot.save()
 
     return redirect('auctioneer:auction_list')
@@ -76,6 +92,7 @@ def auction_publish(request, pk, template_name='auctioneer/auction_list.html'):
     auction= get_object_or_404(Auction, pk=pk)
     auction.auction_published = True
     auction.save()
+    
     return redirect('auctioneer:auction_list')
 
 @login_required
@@ -84,6 +101,17 @@ def auction_cancel(request, pk, template_name='auctioneer/auction_list.html'):
     auction= get_object_or_404(Auction, pk=pk)
     auction.auction_published = False
     auction.save()
+
+    all_lots = Lot.objects.all()
+    for i in range(len(all_lots)):
+        lot_ref_id = Lot.objects.values_list('auction_ref_id')[i][0]
+        if (lot_ref_id == auction.auction_id):
+            auction_lots = Lot.objects.filter(pk=Lot.objects.values_list('id')[i][0])
+            auction_lots.update(number_of_bids_made = 0)
+            auction_lots.update(current_winner_buyer = "No one")
+            auction_lots.update(highest_value_bid = 0)
+            auction_lots.update(auction_ref_id = -999)
+            
     return redirect('auctioneer:auction_list')
 
 @login_required

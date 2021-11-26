@@ -7,8 +7,10 @@
 <ul>
     {% for lot in object_list %}
     <li style="padding-left:15px">Lot: {{ lot.lot_name }} 
-    <a href="{% url 'lot_user:lot_edit' lot.id %}">Edit</a>
-    <a href="{% url 'lot_user:lot_delete' lot.id %}">Delete</a>
+    {% if lot.auction_ref_id == -999 %}
+        <a href="{% url 'lot_user:lot_edit' lot.id %}">Edit</a>
+        <a href="{% url 'lot_user:lot_delete' lot.id %}">Delete</a>
+    {% endif %}
     <a href="{% url 'lot_user:lot_detail' lot.id %}">Details</a>
     </li>
     {% endfor %}

@@ -10,4 +10,5 @@ urlpatterns = [
   path('detail/<int:pk>/', views.lot_detail, name='lot_detail'),
   path('edit/<int:pk>/', views.lot_update, name='lot_edit'),
   path('delete/<int:pk>/', views.lot_delete, name='lot_delete'),
+  path('remove/<int:pk>/', views.lot_remove, name='lot_remove'),
 ]

@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import ModelForm
+from django.contrib import messages
 
 from .models import Lot
 from apps.decorators import *
@@ -55,7 +57,6 @@ class LotForm(ModelForm):
         self.fields['is_higher_than_reserve'].disabled = True
         self.fields['is_higher_than_reserve'].initial = "FALSE"
 
-
     class Meta:
         model = Lot
         fields = [ 
@@ -78,7 +79,6 @@ class LotForm(ModelForm):
             'auction_ref_id',
             'is_higher_than_reserve'
         ]
-
 
 @login_required
 @allowed_users(allowed_roles=['auctioneer', 'seller'])
@@ -103,8 +103,13 @@ def lot_create(request, template_name='lot_user/lot_form.html'):
     if form.is_valid():
         lot = form.save(commit=False)
         lot.user = request.user
-        lot.save()
-        return redirect('lot_user:lot_list')
+        if lot.lot_name != "" and lot.lot_description != "" and lot.reserve_price != "" and lot.seller_contact != "":
+            messages.info(request, 'Successful lot submission!')
+            lot.save()
+            return HttpResponseRedirect('/lot_user/new/')
+        else:
+            messages.info(request, 'Incomplete form! Please, fill all the required information before submission.')
+            return HttpResponseRedirect('/lot_user/new/')
     return render(request, template_name, {'form':form})
 
 @login_required
@@ -122,17 +127,32 @@ def lot_update(request, pk, template_name='lot_user/lot_form_edit.html'):
         form.fields['reserve_price'].disabled = True
         form.fields['minimal_bid'].disabled = False
         form.fields['minimum_bid_increment'].disabled = False
-        form.fields['comissions'].disabled = False
-        form.fields['taxes'].disabled = False
+
     elif request.user.groups.all()[0].name == 'seller':
         template_name = 'lot_user/lot_form_edit_seller.html'
         form.fields['lot_name'].disabled = False
         form.fields['seller_contact'].disabled = False
         form.fields['lot_description'].disabled = False
         form.fields['reserve_price'].disabled = False
+
     if form.is_valid():
-        form.save()
-        return redirect('lot_user:lot_list')
+        if request.user.groups.all()[0].name == 'auctioneer':
+            if lot.minimal_bid!= 0 and lot.minimum_bid_increment != 0:
+                messages.info(request, 'Successful lot edition!')
+                form.save()
+                return HttpResponseRedirect('/lot_user/edit/' + str(pk) + '/')
+            else:
+                messages.info(request, 'Please, edit all the required information before submission.')
+                return HttpResponseRedirect('/lot_user/edit/' + str(pk) + '/')
+        elif request.user.groups.all()[0].name == 'seller':
+            if lot.lot_name != "" and lot.lot_description != "" and lot.reserve_price != "" and lot.seller_contact != "":
+                messages.info(request, 'Successful lot edition!')
+                form.save()
+                return HttpResponseRedirect('/lot_user/edit/' + str(pk) + '/')
+            else:
+                messages.info(request, 'Incomplete form! Please, fill all the required information before submission.')
+                return HttpResponseRedirect('/lot_user/edit/' + str(pk) + '/')
+
     return render(request, template_name, {'form':form})
 
 @login_required
@@ -146,3 +166,14 @@ def lot_delete(request, pk, template_name='lot_user/lot_confirm_delete.html'):
         lot.delete()
         return redirect('lot_user:lot_list')
     return render(request, template_name, {'object':lot})
+
+@login_required
+@allowed_users(allowed_roles=['auctioneer', 'seller'])
+def lot_remove(request, pk, template_name='auctioneer/auction_list.html'):
+
+    auction_lots = Lot.objects.filter(pk=pk)
+    auction_lots.update(number_of_bids_made = 0)
+    auction_lots.update(current_winner_buyer = "No one")
+    auction_lots.update(highest_value_bid = 0)
+    auction_lots.update(auction_ref_id = -999)
+    return redirect('auctioneer:auction_list')

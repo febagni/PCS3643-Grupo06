@@ -11,10 +11,22 @@
     Name: {{ form.lot_name }}<br>
     Seller Contact: {{ form.seller_contact }} <br>
     Description: {{ form.lot_description }} <br>
-    Reserve Price: {{ form.reserve_price }} <br>
+    Reserve Price (USD): {{ form.reserve_price }} <br>
     <br>
     <input type="submit" value="Submit" />
 </form>
+
+{% if messages %}
+    {% for message in messages %}
+        <script type="text/javascript">
+            my_message = "{{ message }}";
+            alert(my_message);
+            if(my_message=="Successful lot edition!"){
+                window.location.href = "../../";
+            }
+        </script>
+    {% endfor %}
+{% endif %}
 
 {% endwith %}
 {% endwith %}

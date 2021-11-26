@@ -9,15 +9,26 @@
 
 <form style="color:white" method="post">{% csrf_token %}
 
-    Minimal Bid: {{ form.minimal_bid }} <br>
-    Minimum Bid Increment: {{ form.minimum_bid_increment }} <br>
-    Comissions: {{ form.comissions }} <br>
-    Taxes: {{ form.taxes }} <br>
+    Minimal Bid (USD): {{ form.minimal_bid }} <br>
+    Minimum Bid Increment (USD): {{ form.minimum_bid_increment }} <br>
+    Comissions (%): {{ form.comissions }} <br>
+    Taxes (%): {{ form.taxes }} <br>
     <br>
-    
 
     <input type="submit" value="Submit" />
 </form>
+
+{% if messages %}
+    {% for message in messages %}
+        <script type="text/javascript">
+            my_message = "{{ message }}";
+            alert(my_message);
+            if(my_message=="Successful lot edition!"){
+                window.location.href = "../../../auctioneer";
+            }
+        </script>
+    {% endfor %}
+{% endif %}
 
 {% endwith %}
 {% endwith %}

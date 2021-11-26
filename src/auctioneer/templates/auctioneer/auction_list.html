@@ -4,13 +4,16 @@
 
 <h2><a href="{% url 'auctioneer:auction_list' %}">Current Auctions</a></h2>
 
+<br>
 <ul>
     {% for auction in object_list %}
     <li>ID: {{auction.auction_id }}
         Auctioneer: {{auction.auctioneer }}
-    <a href="{% url 'auctioneer:auction_edit' auction.id %}">Edit | </a>
-    <a href="{% url 'auctioneer:auction_delete' auction.id %}">Delete |</a>
-    <a href="{% url 'auctioneer:auction_publish' auction.id%}">Publish Auction |</a>
+    {% if auction.auction_published == False %}
+        <a href="{% url 'auctioneer:auction_edit' auction.id %}">Edit | </a>
+        <a href="{% url 'auctioneer:auction_delete' auction.id %}">Delete |</a>
+        <a href="{% url 'auctioneer:auction_publish' auction.id%}">Publish Auction |</a>
+    {% endif %}
     <a href="{% url 'auctioneer:auction_cancel' auction.id%}">Cancel Auction </a>
     </li>
 
@@ -18,16 +21,30 @@
     {% for lot in lot_list %}
     {% if lot.auction_ref_id == auction.auction_id %}
         <li style="padding-left:15px">{{ lot.lot_name }}  ({{ lot.minimal_bid }})
+        {% if auction.auction_published == False %}
+            {% if lot.auction_ref_id != -999 %}
+                <a href="{% url 'lot_user:lot_remove' lot.id %}">Remove |</a>
+            {% endif %}
             <a href="{% url 'lot_user:lot_edit' lot.id %}">Edit |</a>
+        {% endif %}
+        {% if auction.auction_published == True %}
+            {% if lot.auction_ref_id != -999 %}
+                <a href="{% url 'lot_user:lot_remove' lot.id %}">Remove |</a>
+            {% endif %}
+        {% endif %}
             <a href="{% url 'lot_user:lot_detail' lot.id %}">Details</a>
         </li>
     {% endif %}
 
     {% if lot.auction_ref_id != auction.auction_id %}
         <li style="padding-left:15px">{{ lot.lot_name }}  ({{ lot.minimal_bid }})
-            <a href="{% url 'lot_user:lot_edit' lot.id %}">Edit |</a>
-            <a href="{% url 'lot_user:lot_detail' lot.id %}">Details |</a>
-        <a href="{% url 'auctioneer:auction_add_lot' id=lot.id pk=auction.auction_id%}">Add Lot Here</a>
+        {% if auction.auction_published == False %}
+            {% if lot.auction_ref_id == -999 %}
+                <a href="{% url 'auctioneer:auction_add_lot' id=lot.id pk=auction.auction_id%}">Add Lot Here |</a>
+            {% endif %}
+            
+        {% endif %}
+            <a href="{% url 'lot_user:lot_detail' lot.id %}">Details</a>
         </li>
     {% endif %}
 
@@ -37,6 +54,7 @@
         <a href="{% url 'auctioneer:auction_financial_report' auction.id%}">Get Financial Report </a>
         <br>
     {% endif %}
+    <br>
     {% endfor %}
 </ul>
 <br>
