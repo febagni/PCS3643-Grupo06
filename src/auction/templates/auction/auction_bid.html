@@ -37,9 +37,12 @@
 {% if messages %}
     {% for message in messages %}
         <script type="text/javascript">
-            alert("Oops...invalid bid! Please enter a valid value.");
+            my_message = "{{ message }}";
+            alert(my_message);
+            if(my_message=="Successful bid made!"){
+                window.location.href = "../../../";
+            }
         </script>
-        {% comment %} <h3{% if message.tags %} class="{{ message.tags }}"{% endif %} style="padding-left:50px;color:red"> {{ message }} </h3> {% endcomment %}
     {% endfor %}
 {% endif %}
 

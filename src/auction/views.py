@@ -76,18 +76,18 @@ def make_bid(request, id, pk, template_name='auction/auction_bid.html'):
         if lot.number_of_bids_made == 0:
             if bid.bid_value >= lot.minimal_bid:
                 update_valid_bid(request, lot, bid)
-                return HttpResponseRedirect('/auction/')
+                messages.info(request, 'Successful bid made!')
             else:
                 messages.info(request, 'Invalid bid. Please enter a valid value.')
-                return HttpResponseRedirect('/auction/bid/' + str(id) + '/' + str(pk) + '/')
         else:
             if bid.bid_value >= (lot.highest_value_bid + lot.minimum_bid_increment):
                 update_valid_bid(request, lot, bid)
-                return HttpResponseRedirect('/auction/')
+                messages.info(request, 'Successful bid made!')
             else:
                 messages.info(request, 'Invalid bid. Please enter a valid value.')
-                return HttpResponseRedirect('/auction/bid/' + str(id) + '/' + str(pk) + '/')
-   
+        
+        return HttpResponseRedirect('/auction/bid/' + str(id) + '/' + str(pk) + '/')
+
     data['bid_form'] = form
 
     return render(request, template_name, data)

@@ -9,7 +9,7 @@
 
 <form style="color:white" method="post">{% csrf_token %}
     Name: {{ form.lot_name }}<br>
-    Seller Contact: {{ form.seller_contact }} <br>
+    Seller Contact (email): {{ form.seller_contact }} <br>
     Description: {{ form.lot_description }} <br>
     Reserve Price (USD): {{ form.reserve_price }} <br>
     <br>
@@ -25,6 +25,18 @@
 
     <input type="submit" value="Submit" />
 </form>
+
+{% if messages %}
+    {% for message in messages %}
+        <script type="text/javascript">
+            my_message = "{{ message }}";
+            alert(my_message);
+            if(my_message=="Successful lot submission!"){
+                window.location.href = "../";
+            }
+        </script>
+    {% endfor %}
+{% endif %}
 
 {% endwith %}
 {% endwith %}

@@ -27,6 +27,11 @@
             {% endif %}
             <a href="{% url 'lot_user:lot_edit' lot.id %}">Edit |</a>
         {% endif %}
+        {% if auction.auction_published == True %}
+            {% if lot.auction_ref_id != -999 %}
+                <a href="{% url 'lot_user:lot_remove' lot.id %}">Remove |</a>
+            {% endif %}
+        {% endif %}
             <a href="{% url 'lot_user:lot_detail' lot.id %}">Details</a>
         </li>
     {% endif %}
