@@ -76,6 +76,7 @@ def auction_publish(request, pk, template_name='auctioneer/auction_list.html'):
     auction= get_object_or_404(Auction, pk=pk)
     auction.auction_published = True
     auction.save()
+    
     return redirect('auctioneer:auction_list')
 
 @login_required
@@ -84,6 +85,17 @@ def auction_cancel(request, pk, template_name='auctioneer/auction_list.html'):
     auction= get_object_or_404(Auction, pk=pk)
     auction.auction_published = False
     auction.save()
+
+    all_lots = Lot.objects.all()
+    for i in range(len(all_lots)):
+        lot_ref_id = Lot.objects.values_list('auction_ref_id')[i][0]
+        if (lot_ref_id == auction.auction_id):
+            auction_lots = Lot.objects.filter(pk=Lot.objects.values_list('id')[i][0])
+            auction_lots.update(number_of_bids_made = 0)
+            auction_lots.update(current_winner_buyer = "No one")
+            auction_lots.update(highest_value_bid = 0)
+            auction_lots.update(auction_ref_id = -999)
+            
     return redirect('auctioneer:auction_list')
 
 @login_required

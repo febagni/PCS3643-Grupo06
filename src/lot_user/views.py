@@ -146,3 +146,14 @@ def lot_delete(request, pk, template_name='lot_user/lot_confirm_delete.html'):
         lot.delete()
         return redirect('lot_user:lot_list')
     return render(request, template_name, {'object':lot})
+
+@login_required
+@allowed_users(allowed_roles=['auctioneer', 'seller'])
+def lot_remove(request, pk, template_name='auctioneer/auction_list.html'):
+
+    auction_lots = Lot.objects.filter(pk=pk)
+    auction_lots.update(number_of_bids_made = 0)
+    auction_lots.update(current_winner_buyer = "No one")
+    auction_lots.update(highest_value_bid = 0)
+    auction_lots.update(auction_ref_id = -999)
+    return redirect('auctioneer:auction_list')

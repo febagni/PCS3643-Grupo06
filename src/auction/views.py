@@ -36,6 +36,7 @@ def auction_list(request, template_name='auction/auction_list.html'):
         end_date = Auction.objects.values_list('auction_end')[i][0].replace(tzinfo=None)
         start_date = Auction.objects.values_list('auction_start')[i][0].replace(tzinfo=None)
         iterable_pk = Auction.objects.values_list('id')[i][0]
+        print(Auction.objects.values_list('id')[i][0])
         if current_date < end_date:
             if current_date >= start_date:
                 Auction.objects.filter(pk=iterable_pk).update(auction_status="ON GOING")
@@ -60,7 +61,7 @@ def update_valid_bid(request, lot, bid):
 @allowed_users(allowed_roles=['buyer'])
 def make_bid(request, id, pk, template_name='auction/auction_bid.html'):
     lot = get_object_or_404(Lot, pk=pk)
-    #LotList.addBidToLotList(lot)
+
     data = {}
     data['lot'] = lot
 
