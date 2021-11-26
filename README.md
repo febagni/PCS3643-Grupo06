@@ -96,3 +96,13 @@ Foi feita a implementação dos testes com o caso de uso criar lote com uso do S
 
 ## Aula 10 (12/11/2021)
 Foi feito o update do [README](./src/README.md) com as instruções para rodar o projeto de forma local explicando como rodar o projeto. E trabalhadas as implementações dos casos de uso para os testes de integração previstos.
+
+---
+
+## Aula 11 (19/11/2021)
+Foram finalizados os casos de uso para Testes de Integração, que foram realizados e bem sucedidos.
+
+---
+
+## Aula 12 (26/11/2021)
+Foram finalizadas as validações dos casos de uso para Testes de Validação, assim como adaptações para completude dos casos de uso. Além disso, o relatório de testes de validação foi elaborado e pode ser encontrado [aqui](./docs/relatorio_testes_validacao.pdf).
