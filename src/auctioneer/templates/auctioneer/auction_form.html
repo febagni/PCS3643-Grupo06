@@ -2,12 +2,16 @@
 
 {% block content %}
 
-<h2><a href="{% url 'auction:auction_list' %}">Create Auction</a></h2>
-<h2><a href="{% url 'auctioneer:auction_list_lot' %}">Lot List</a></h2>
+<h4><a href="{% url 'auction:auction_list' %}" style="font-size:30px">Create Auction</a></h4>
+<h4><a href="{% url 'auctioneer:auction_list_lot' %}" style="font-size:30px">Lot List</a></h4>
 
-<form method="post">{% csrf_token %}
+<div align="center">
+<form method="post" class="form ic1" id="inputcolor">{% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit" class="button button1" style="margin-left:180px"/>
+    <br><br><br>
 </form>
+</div>
+
 
 {% endblock %}

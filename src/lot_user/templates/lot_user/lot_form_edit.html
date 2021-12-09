@@ -5,7 +5,7 @@
 {% with blank_default='-' %}
 {% with number_default=0 %}
 
-<h2 style="color:white"><a href="{% url 'lot_user:lot_list' %}">Lot</a>: Edit</h2>
+<h2><a href="{% url 'lot_user:lot_list' %}">Lot</a>: Edit</h2>
 
 <form style="color:white" method="post">{% csrf_token %}
 
@@ -15,7 +15,7 @@
     Taxes (%): {{ form.taxes }} <br>
     <br>
 
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit" class="button button1"/>
 </form>
 
 {% if messages %}

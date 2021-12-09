@@ -2,34 +2,34 @@
 
 {% block content %}
 
-<h2 style="padding-left:15px"><a href="{% url 'auction:auction_list' %}">Return to Available Auctions</a></h2>
+<h4 style="padding-left:15px"><a href="{% url 'auction:auction_list' %}">Return to Available Auctions</a></h4>
 
-<br><hr><br>
+<hr>
 
-<h3 style="padding-left:15px;color: white">This lot details and rules are: </h3> <br>
+<h3 style="padding-left:15px;color: white; font-size:30px">This lot details and rules are: </h3> 
 
 <ul style="padding-left:50px">
 
-    <li>Name: {{ lot.lot_name }} </li>
-    <li>Seller Contact (E-mail): {{ lot.seller_contact }} </li>
-    <li>Description: {{ lot.lot_description }} </li>
+    <li><strong>Name</strong>: {{ lot.lot_name }} </li>
+    <li><strong>Seller Contact (E-mail)</strong>: {{ lot.seller_contact }} </li>
+    <li><strong>Description</strong>: {{ lot.lot_description }} </li>
        
-    <li>Minimal Bid (USD): {{ lot.minimal_bid }} </li>
-    <li>Minimum Bid Increment (USD): {{ lot.minimum_bid_increment }} </li>
+    <li><strong>Minimal Bid (USD)</strong>: {{ lot.minimal_bid }} </li>
+    <li><strong>Minimum Bid Increment (USD)</strong>: {{ lot.minimum_bid_increment }} </li>
 
-    <li>Number of Bids Made: {{ lot.number_of_bids_made }} </li>
-    <li>Current Winner Buyer: {{ lot.current_winner_buyer }} </li>
-    <li>Highest Value Bid (USD): {{ lot.highest_value_bid }} </li>
+    <li><strong>Number of Bids Made</strong>: {{ lot.number_of_bids_made }} </li>
+    <li><strong>Current Winner Buyer</strong>: {{ lot.current_winner_buyer }} </li>
+    <li><strong>Highest Value Bid (USD)</strong>: {{ lot.highest_value_bid }} </li>
     
 </ul>
 
-<br><hr><br>
+<hr>
 
-<h3 style="padding-left:15px;color: white">Make your bid here: </h3> <br>
+<h3 style="padding-left:15px;color: white; font-size:30px">Make your bid here: </h3> <br>
 
 <form method="post" style="padding-left:50px">{% csrf_token %}
     {{ bid_form.as_p }}
-    <input type="Submit" value="Submit Bid" />
+    <input type="Submit" value="Submit Bid" class="button button1"/>
 </form>
 
 <br>

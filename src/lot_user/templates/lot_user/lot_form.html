@@ -5,7 +5,7 @@
 {% with blank_default='-' %}
 {% with number_default=0 %}
 
-<h2 style="color:white"><a href="{% url 'lot_user:lot_list' %}">Lot</a>: Edit</h2>
+<h3 style="color:white"><a href="{% url 'lot_user:lot_list' %}">Lot</a>: Edit</h3>
 
 <form style="color:white" method="post">{% csrf_token %}
     Name: {{ form.lot_name }}<br>
@@ -23,7 +23,7 @@
     Current Winner Buyer: {{ form.current_winner_buyer }} <br>
     Highest Value Bid (USD): {{ form.highest_value_bid }} <br>
 
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit" class="button button1"/>
 </form>
 
 {% if messages %}

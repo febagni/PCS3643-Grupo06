@@ -8,12 +8,20 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Favorite Bid System</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <title>Bid Coin</title>
+    <link rel="icon" href="{% static '/images/logoico.ico' %}">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    {% comment %} <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.css' %}">
+            
 	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> <!-- https://fonts.google.com/ -->
 </head>
 
 <body>
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
 
     <div class="header">
         <h1><a href="/" style="width: 10px;"><img src="{% static '/images/logo.png' %}" alt="Bid Coin" width=30% height=30%></a></h1>
@@ -41,7 +49,7 @@
     <div id="content">
         {% if user.is_authenticated %}
         <div id="user" style="padding-left:15px; float:right; font: 'Montserrat'; font-size:12px;">
-            Hello {{ user }}, <a href="{% url 'logout' %}">Logout</a>
+           <h6> Hello {{ user }},  <a href="{% url 'logout' %}" class="button button1">Logout</a></h6>
         </div>
         {% endif %}
 

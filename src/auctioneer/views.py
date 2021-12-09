@@ -11,6 +11,7 @@ from apps.decorators import *
 
 from django.http import FileResponse
 import io
+import os
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.lib.pagesizes import A4, letter
@@ -18,6 +19,7 @@ from reportlab.platypus.flowables import Image
 from reportlab.platypus import Table, TableStyle
 from reportlab.lib import colors
 
+__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 class AuctionForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -149,7 +151,8 @@ def report_header(title):
     textob.textLine("")
     textob.textLine(title)
     textob.setFont("Helvetica", 12)
-    canv.drawImage(image="theme/static/images/BidCoin.png", x=20.0,y=20.0, width=134.4,height=33.0,mask=None, preserveAspectRatio='nw')
+    img = os.path.join(__location__, "../theme/static/images/BidCoin.png")
+    canv.drawImage(image=img, x=20.0,y=20.0, width=134.4,height=33.0,mask=None, preserveAspectRatio='nw')
 
     return buffer, canv, textob
 
