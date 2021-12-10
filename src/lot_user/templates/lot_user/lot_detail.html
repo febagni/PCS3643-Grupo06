@@ -2,12 +2,13 @@
 
 {% block content %}
 
-<h2 style="padding-left:15px"><a href="{% url 'lot_user:lot_list' %}">Return to Lot List</a></h2>
+<h4 style="padding-left:15px"><a href="{% url 'lot_user:lot_list' %}">Return to Lot List</a></h4>
 
-<ul>
+<div class="input-field" align="center">
+
+<ul class="form lot-details">
     {% for lot in object_list %}
     <li style="padding-left:15px">
-        <br>
         Name: {{ lot.lot_name }} <br><br>
         Seller Contact (E-mail): {{ lot.seller_contact }} <br><br>
         Description: {{ lot.lot_description }} <br><br>
@@ -27,5 +28,6 @@
     </li>
     {% endfor %}
 </ul>
-
+</div>
+<br>
 {% endblock %}

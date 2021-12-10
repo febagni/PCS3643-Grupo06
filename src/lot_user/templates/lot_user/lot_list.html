@@ -2,20 +2,22 @@
 
 {% block content %}
 
-<h2 style="padding-left:15px"><a href="{% url 'lot_user:lot_list' %}">Lots</a></h2>
+<h4 style="padding-left:15px"><a href="{% url 'lot_user:lot_list' %}">Lots</a></h4>
 
 <ul>
     {% for lot in object_list %}
-    <li style="padding-left:15px">Lot: {{ lot.lot_name }} 
+    <li style="padding-left:15px"> {{ lot.lot_name }} 
     {% if lot.auction_ref_id == -999 %}
-        <a href="{% url 'lot_user:lot_edit' lot.id %}">Edit</a>
-        <a href="{% url 'lot_user:lot_delete' lot.id %}">Delete</a>
+        <a href="{% url 'lot_user:lot_edit' lot.id %}">Edit</a> |
+        <a href="{% url 'lot_user:lot_delete' lot.id %}">Delete</a> |
     {% endif %}
     <a href="{% url 'lot_user:lot_detail' lot.id %}">Details</a>
     </li>
     {% endfor %}
 </ul>
 
-<a style="padding-left:15px" href="{% url 'lot_user:lot_new' %}">New</a>
+<a href="{% url 'lot_user:lot_new' %} " class="button button1">New</a>
+
+<br><br>
 
 {% endblock %}

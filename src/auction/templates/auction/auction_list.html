@@ -2,51 +2,49 @@
 
 {% block content %}
 
-<h2><a href="{% url 'auction:auction_list' %}"> Available Auctions</a></h2>
+<h4><a href="{% url 'auction:auction_list' %}"> Available Auctions</a></h4>
 
-<h4 style="color:white"> Today: {{ today }} </h4>
+<h5> Today: {{ today }} </h5>
 
 <ul style="padding-left:15px">
     {% for auction in object_list %}
         {% if auction.auction_published == True %}
-        <br>
-        <li style="color:white"> Auction ID: {{ auction.auction_id }} <br>
+        <hr>
+        <li> <strong>Auction ID</strong>: {{ auction.auction_id }} <br>
             <ul style="padding-left:30px">
-                <li> Start Date: {{ auction.auction_start }} </li>
-                <li> End Date: {{ auction.auction_end }} </li>
-                <li> Status: {{ auction.auction_status }}</li>
+                <li> <strong>Start Date</strong>: {{ auction.auction_start }} </li>
+                <li> <strong>End Date</strong>: {{ auction.auction_end }} </li>
+                <li> <strong>Status</strong>: {{ auction.auction_status }}</li>
 
-                    <li style="color:white">Available Lots in this Auction: <br>
+                    <li><strong>Available Lots in this Auction</strong>: <br>
                         {% for lot in lot_list %}
                             {% if lot.auction_ref_id == auction.auction_id %}
                             
                             <div>
                                 <ul style="padding-left:45px">
-                                    <li> Lot name: {{ lot.lot_name }}</li>
+                                    <li> <strong>Lot name</strong>: {{ lot.lot_name }}</li>
                                         {% if auction.auction_status == "ON GOING" %}
-                                            <a href="{% url 'auction:make_bid' auction.id lot.id%}"><button>Make a Bid!</button> </a>
-
-                                            
+                                            <a href="{% url 'auction:make_bid' auction.id lot.id%}"><button class="button button1">Make a Bid!</button> </a>
 
                                             <ul style="padding-left:60px; font-size:14px">
-                                                <li> Number of Bids Made: {{ lot.number_of_bids_made }} </li>
-                                                <li> Current Winner Buyer: {{ lot.current_winner_buyer }} </li>
-                                                <li> Highest Value Bid: {{ lot.highest_value_bid }} </li>
+                                                <li> <strong>Number of Bids Made</strong>: {{ lot.number_of_bids_made }} </li>
+                                                <li> <strong>Current Winner Buyer</strong>: {{ lot.current_winner_buyer }} </li>
+                                                <li> <strong>Highest Value Bid</strong>: {{ lot.highest_value_bid }} </li>
                                             </ul>
                                         {% endif %}
                                         {% if auction.auction_status == "FINISHED" %}
                                             {% if lot.is_higher_than_reserve == "TRUE" %}
-                                                {% comment %} <a href="{% url 'auction:make_bid' auction.id lot.id%}"><button>Make a Bid!</button> </a> {% endcomment %}
+                                                {% comment %} <a href="{% url 'auction:make_bid' auction.id lot.id%}"><button class="button button1">Make a Bid!</button> </a> {% endcomment %}
                                                 <ul style="padding-left:60px; font-size:14px">
-                                                    <li> Number of Bids Made: {{ lot.number_of_bids_made }} </li>
-                                                    <li> Winner Buyer: {{ lot.current_winner_buyer }} </li>
-                                                    <li> Winner Value Bid: USD{{ lot.highest_value_bid }} </li>
+                                                    <li> <strong>Number of Bids Made</strong>: {{ lot.number_of_bids_made }} </li>
+                                                    <li> <strong>Winner Buyer</strong>: {{ lot.current_winner_buyer }} </li>
+                                                    <li> <strong>Winner Value Bid</strong>: USD{{ lot.highest_value_bid }} </li>
                                                 </ul>
                                             {% endif %}
                                             {% if lot.is_higher_than_reserve != "TRUE" %}
-                                                {% comment %} <a href="{% url 'auction:make_bid' auction.id lot.id%}"><button>Make a Bid!</button> </a> {% endcomment %}
+                                                {% comment %} <a href="{% url 'auction:make_bid' auction.id lot.id%}"><button class="button button1">Make a Bid!</button> </a> {% endcomment %}
                                                 <ul style="padding-left:60px; font-size:14px">
-                                                    <li> Number of Bids Made: {{ lot.number_of_bids_made }} </li>
+                                                    <li> <strong>Number of Bids Made</strong>: {{ lot.number_of_bids_made }} </li>
                                                     {% comment %} <li> IS HIGHER: {{ lot.is_higher_than_reserve }} </li> {% endcomment %}
                                                     <li> The reserve price could not be matched.</li>
                                                 </ul>
@@ -66,3 +64,5 @@
 </ul>
 
 {% endblock %}
+
+<br><br><br>

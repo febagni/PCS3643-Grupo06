@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2 style="color:rgb(255, 255, 255)"><a href="{% url 'lot_user:lot_list' %}">Return to Lot List</a> <br> Delete</h2>
+<h4 style="color:rgb(255, 255, 255)"><a href="{% url 'lot_user:lot_list' %}">Return to Lot List</a> <br> Delete</h4>
 
 <form style="color:rgb(255, 255, 255)" method="post">{% csrf_token %}
     Are you sure you want to delete "{{ object }}" ?<br/>

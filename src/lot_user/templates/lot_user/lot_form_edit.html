@@ -5,9 +5,10 @@
 {% with blank_default='-' %}
 {% with number_default=0 %}
 
-<h2 style="color:white"><a href="{% url 'lot_user:lot_list' %}">Lot</a>: Edit</h2>
+<h4><a href="{% url 'lot_user:lot_list' %}">Lot</a>: Edit</h4>
 
-<form style="color:white" method="post">{% csrf_token %}
+<div class="input-field" align="center">
+    <form class="form inputforms-lot-edit" method="post">{% csrf_token %}
 
     Minimal Bid (USD): {{ form.minimal_bid }} <br>
     Minimum Bid Increment (USD): {{ form.minimum_bid_increment }} <br>
@@ -15,8 +16,9 @@
     Taxes (%): {{ form.taxes }} <br>
     <br>
 
-    <input type="submit" value="Submit" />
-</form>
+    <input type="submit" value="Submit" class="button button1" style="margin-left:180px"/>
+    </form>
+</div>
 
 {% if messages %}
     {% for message in messages %}
