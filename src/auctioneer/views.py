@@ -29,6 +29,7 @@ class AuctionForm(ModelForm):
         self.fields['auction_published'].disabled = True
         self.fields['auction_published'].required = False
         self.fields['auction_published'].initial = False
+
     class Meta:
         model = Auction
         fields = ('auction_id', 'auction_start', 'auction_end', 'auctioneer', 'auction_status', 'auction_published')

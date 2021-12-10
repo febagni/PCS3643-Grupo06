@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<h3><a href="{% url 'auction:auction_list' %}"> Available Auctions</a></h3>
+<h4><a href="{% url 'auction:auction_list' %}"> Available Auctions</a></h4>
 
-<h4> Today: {{ today }} </h4>
+<h5> Today: {{ today }} </h5>
 
 <ul style="padding-left:15px">
     {% for auction in object_list %}

@@ -27,11 +27,12 @@
 
 <h3 style="padding-left:15px;color: white; font-size:30px">Make your bid here: </h3> <br>
 
-<form method="post" style="padding-left:50px">{% csrf_token %}
-    {{ bid_form.as_p }}
-    <input type="Submit" value="Submit Bid" class="button button1"/>
-</form>
-
+<div class="input-field" align="center">
+    <form method="post" class="form inputforms-lot-bid">{% csrf_token %}
+        {{ bid_form.as_p }}
+        <input type="Submit" value="Submit Bid" class="button button1" style="margin-left:160px"/>
+    </form>
+</div>
 <br>
 
 {% if messages %}

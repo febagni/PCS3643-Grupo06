@@ -5,26 +5,27 @@
 {% with blank_default='-' %}
 {% with number_default=0 %}
 
-<h3 style="color:white"><a href="{% url 'lot_user:lot_list' %}">Lot</a>: Edit</h3>
+<h4 style="color:white"><a href="{% url 'lot_user:lot_list' %}">Lot</a>: Edit</h4>
+<div class="input-field" align="center">
+    <form class="form inputforms-lot-create" method="post">{% csrf_token %}
+        Name: {{ form.lot_name }}<br>
+        Seller Contact (email): {{ form.seller_contact }} <br>
+        Description: {{ form.lot_description }} <br>
+        Reserve Price (USD): {{ form.reserve_price }} <br>
+        <br>
+        Minimal Bid (USD): {{ form.minimal_bid }} <br>
+        Minimum Bid Increment (USD): {{ form.minimum_bid_increment }} <br>
+        Comissions (%): {{ form.comissions }} <br>
+        Taxes (%): {{ form.taxes }} <br>
+        <br>
+        Sequential UUID: {{ form.sequential_uuid }} <br>
+        Number of Bids Made: {{ form.number_of_bids_made }} <br>
+        Current Winner Buyer: {{ form.current_winner_buyer }} <br>
+        Highest Value Bid (USD): {{ form.highest_value_bid }} <br>
 
-<form style="color:white" method="post">{% csrf_token %}
-    Name: {{ form.lot_name }}<br>
-    Seller Contact (email): {{ form.seller_contact }} <br>
-    Description: {{ form.lot_description }} <br>
-    Reserve Price (USD): {{ form.reserve_price }} <br>
-    <br>
-    Minimal Bid (USD): {{ form.minimal_bid }} <br>
-    Minimum Bid Increment (USD): {{ form.minimum_bid_increment }} <br>
-    Comissions (%): {{ form.comissions }} <br>
-    Taxes (%): {{ form.taxes }} <br>
-    <br>
-    Sequential UUID: {{ form.sequential_uuid }} <br>
-    Number of Bids Made: {{ form.number_of_bids_made }} <br>
-    Current Winner Buyer: {{ form.current_winner_buyer }} <br>
-    Highest Value Bid (USD): {{ form.highest_value_bid }} <br>
-
-    <input type="submit" value="Submit" class="button button1"/>
-</form>
+        <input type="submit" value="Submit" class="button button1" style="margin-left:180px"/>
+    </form>
+</div>
 
 {% if messages %}
     {% for message in messages %}

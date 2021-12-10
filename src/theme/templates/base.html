@@ -6,6 +6,33 @@
 <meta charset=”utf-8″>
 
 <head>
+    <style type="text/css">
+        .input-field input[type]:not([readonly]),
+        .input-field input[type]:focus:not([readonly]),
+        .input-field textarea:not([readonly]),
+        .input-field textarea:focus:not([readonly]) {
+          border-bottom: 1px solid #c59700;
+          color:#ffffff;
+        }
+        
+    
+        .input-field input[type].valid,
+        .input-field input[type].valid:focus,
+        .input-field textarea.valid,
+        .input-field textarea.valid:focus {
+          border-bottom: 1px solid #c59700;
+          box-shadow: 0 1px 0 0 #c59700;
+        }
+        
+        .input-field input[type].valid:focus+label,
+        .input-field input[type].valid~.helper-text::after,
+        .input-field input[type].valid:focus~.helper-text::after,
+        .input-field textarea.valid:focus+label,
+        .input-field textarea.valid~.helper-text::after,
+        .input-field textarea.valid:focus~.helper-text::after {
+          color: #c59700;
+        }
+      </style>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bid Coin</title>

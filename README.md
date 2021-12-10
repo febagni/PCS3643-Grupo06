@@ -106,3 +106,9 @@ Foram finalizados os casos de uso para Testes de Integração, que foram realiza
 
 ## Aula 12 (26/11/2021)
 Foram finalizadas as validações dos casos de uso para Testes de Validação, assim como adaptações para completude dos casos de uso. Além disso, o relatório de testes de validação foi elaborado e pode ser encontrado [aqui](./docs/relatorio_testes_validacao.pdf).
+
+---
+
+## Aula 13 (03/12/2021)
+
+Preparação para aceitação: ajustes UI/UX e documentações.

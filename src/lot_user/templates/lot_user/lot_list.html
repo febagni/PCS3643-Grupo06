@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h3 style="padding-left:15px"><a href="{% url 'lot_user:lot_list' %}">Lots</a></h3>
+<h4 style="padding-left:15px"><a href="{% url 'lot_user:lot_list' %}">Lots</a></h4>
 
 <ul>
     {% for lot in object_list %}
@@ -16,7 +16,7 @@
     {% endfor %}
 </ul>
 
-<a style="padding-left:15px" href="{% url 'lot_user:lot_new' %} " class="button button1">New</a>
+<a href="{% url 'lot_user:lot_new' %} " class="button button1">New</a>
 
 <br><br>
 
