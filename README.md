@@ -60,26 +60,18 @@ Foi feita a implementação da classe Lot com e sem autenticação, que represen
 
 O Diagrama da Entidade Relacionamento dos casos de uso são:
 
-- Caso de Uso 1:
+- [Caso de Uso 1](./diagrams/E-R_CasoDeUso1.png);
 
-![DER-1](./diagrams/E-R_CasoDeUso1.png)
+- [Caso de Uso 2](./diagrams/E-R_CasoDeUso2.png);
 
-- Caso de Uso 2:
-
-![DER-2](./diagrams/E-R_CasoDeUso2.png)
-
-- Caso de Uso 3:
-
-![DER-3](./diagrams/E-R_CasoDeUso3.png)
+- [Caso de Uso 3](./diagrams/E-R_CasoDeUso3.png);
 
 Os diagramas do [documento](./docs/ERS_g6.pdf) foram atualizado após revisão para fazer o diagrama E-R para o Banco de Dados.
 
 ---
 
 ## Aula 07 (15/10/2021)
-Foi feita a implementação das classes Auction e Auctioneer, além melhorias em UI e UX, trabalhando-se o front-end com CSS e HTML. Desenvolvido um logo para o projeto e feito o Diagrama de Navegação (modelo de interfaces e navegação), como pode ser visto aqui:
-
-![DER-3](./diagrams/diagrama-navegacao.png)
+Foi feita a implementação das classes Auction e Auctioneer, além melhorias em UI e UX, trabalhando-se o front-end com CSS e HTML. Desenvolvido um logo para o projeto e feito o Diagrama de Navegação (modelo de interfaces e navegação), como pode ser visto [aqui](./diagrams/diagrama-navegacao.png)
 
 ---
 
@@ -116,5 +108,4 @@ Preparação para aceitação: ajustes UI/UX e documentações.
 ---
 
 ## Aula 14 (10/12/2021)
-Dia da aceitação, [apresentação](.docs/Apresentacao_Final.pdf) feita 
-
+Dia da aceitação, [apresentação](.docs/Apresentacao_Final.pdf) feita.
