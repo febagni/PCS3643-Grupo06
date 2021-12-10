@@ -112,3 +112,9 @@ Foram finalizadas as validações dos casos de uso para Testes de Validação, a
 ## Aula 13 (03/12/2021)
 
 Preparação para aceitação: ajustes UI/UX e documentações.
+
+---
+
+## Aula 14 (10/12/2021)
+Dia da aceitação, [apresentação](.docs/Apresentacao_Final.pdf) feita 
+
