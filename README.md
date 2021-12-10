@@ -60,11 +60,11 @@ Foi feita a implementação da classe Lot com e sem autenticação, que represen
 
 O Diagrama da Entidade Relacionamento dos casos de uso são:
 
-- [Caso de Uso 1](./diagrams/E-R_CasoDeUso1.png)
+- [Caso de Uso 1](./diagrams/E-R_CasoDeUso1.png);
 
-- [Caso de Uso 2](./diagrams/E-R_CasoDeUso2.png)
+- [Caso de Uso 2](./diagrams/E-R_CasoDeUso2.png);
 
-- [Caso de Uso 3](./diagrams/E-R_CasoDeUso3.png)
+- [Caso de Uso 3](./diagrams/E-R_CasoDeUso3.png);
 
 Os diagramas do [documento](./docs/ERS_g6.pdf) foram atualizado após revisão para fazer o diagrama E-R para o Banco de Dados.
 
